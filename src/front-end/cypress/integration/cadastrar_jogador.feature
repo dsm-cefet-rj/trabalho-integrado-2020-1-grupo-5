@@ -3,8 +3,8 @@ Funcionalidade: Cadastrar novos jogadores
 
   Cenário: Cadastrar novo jogador
     Dado que é exibida a tela de novo jogador
-      E o formulário está preenchido
-    Quando clico em salvar
+    Quando o formulário está preenchido
+      E clico em salvar
     Então o jogador é salvo 
       E é exibida a tela de jogadores
 
