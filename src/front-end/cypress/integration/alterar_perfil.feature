@@ -8,8 +8,8 @@ Funcionalidade: Alterar perfil
 
   Cenário: Alterar dados do perfil
     Dado que é exibida a tela de perfil
-      E alterei algum dado do formulário
-    Quando clico em salvar
+    Quando alterei algum dado do formulário
+      E clico em salvar
     Então é exibido a tela de perfil
 
   Cenário: Não alterar dados do perfil
