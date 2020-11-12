@@ -3,8 +3,8 @@ Funcionalidade: Cadastrar novos adms
 
   Cenário: Cadastrar novo adm
     Dado que é exibida a tela de novo adm
-      E formulário preenchido
-    Quando clico em salvar
+    Quando o formulário está preenchido
+      E clico em salvar
     Então é salvo o adm
       E é exibida a tela de adms
       E o novo adm é notificado da senha
