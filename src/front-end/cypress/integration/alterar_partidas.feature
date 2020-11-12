@@ -29,8 +29,8 @@ Funcionalidade: Alterar partidas
 
   Cenário: Preencher o formulário
     Dado que é exibida a tela de nova partida
-      E o formulário foi preenchido
-    Quando clico em salvar
+    Quando o formulário foi preenchido
+      E clico em salvar
     Então a partida é salva no banco de dados
       E é exibida a tela de partidas
 
