@@ -8,9 +8,9 @@ Funcionalidade: Cadastrar novos times
 
   Cenário: Cadastrar novo time
     Dado que é exibida a tela de novo time
-      E formulário preenchido
-      E imagem salva
-    Quando clico em salvar
+    Quando a imagem está salva
+      E o formulário está preenchido
+      E clico em salvar
     Então é salvo o time
       E é exibida a tela de times
 
