@@ -10,7 +10,7 @@ import {
 
 const App = (props) => {
   const [partidas, setPartidas] = useState(
-    [ {data:'31/10/2020', time_A:'Barcelona', gols_time_A:1, gols_time_B:1, time_B:'M. City'},
+    [ {data:'31/10/2020', arbitro:'', local: '', time_A:'Barcelona', gols_time_A:1, gols_time_B:1, time_B:'M. City', jogador_A:'', jogador_B:'', gols_jogador_A: '',gols_jogador_B: ''},
       {data:'07/11/2020', time_A:'Barcelona', gols_time_A:4, gols_time_B:3, time_B:'M. City'},
       {data:'14/11/2020', time_A:'Barcelona', gols_time_A:3, gols_time_B:3, time_B:'M. City'} ]
   );
