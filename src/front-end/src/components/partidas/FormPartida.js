@@ -1,9 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useParams, useHistory } from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
+import {addPartida, updatePartida} from './PartidasSlice'
 
 export default function FormPartida(props) {
     
     //inicializa o estado com o hook useState
-    const [partida, setPartida] = useState({});
+    const partidas = useSelector(state => state.partidas) 
+    const history  = useHistory();
+    const dispatch = useDispatch();
+
+    let { id } = useParams();
+    id = parseInt(id);
+
+    const [partida, setPartida] = useState(
+        id ? partidas.filter((p) => p.id === id)[0] ?? {} : {});
+
+    const [actionType, ] = useState(
+        id  ? partidas.filter((p) => p.id === id)[0] 
+                ? 'partidas/updatePartida'
+                : 'partidas/addPartida'
+            : 'partidas/addPartida');
 
     //Atualiza o estado usando o setPartida
     function handleInputChange(e) {
@@ -12,13 +29,18 @@ export default function FormPartida(props) {
     
     function handleSubmit(e){
         e.preventDefault();
-        props.setPartidas(props.partidas.concat(partida))
+        if(actionType === 'partidas/addPartida'){
+            dispatch(addPartida(partida));
+        }else{
+            dispatch(updatePartida(partida));
+        }
+        history.push('/partidas');
     }
 
     return( <>
                 <h1>Nova Partida</h1>
                 <form onSubmit={handleSubmit}>
-                    <label>Data:</label> <input type="date" name="data" value={partida.data} onChange={handleInputChange} />
+                    <label>Data:</label> <input type="text" name="data" value={partida.data} onChange={handleInputChange} />
                     <br></br>
                     <br></br>
                     <label>Árbitro:</label> <input type="text" name="arbitro_partida" maxlength="50" size="15" value={partida.arbitro} onChange={handleInputChange} />
