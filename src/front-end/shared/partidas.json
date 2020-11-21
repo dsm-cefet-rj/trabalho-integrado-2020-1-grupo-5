@@ -1,0 +1,17 @@
+{   "partidas": 
+    [
+        {   "id":1,
+            "data":"31/10/2020", 
+            "arbitro":"José Filho", 
+            "local":"Maracanã",
+            "time_A":"Barcelona", 
+            "gols_time_A":2, 
+            "gols_time_B":2, 
+            "time_B":"M. City", 
+            "jogador_A":["Cristiano", "Mbappé"],
+            "gols_jogador_A":[1,1], 
+            "jogador_B":["Messi","Neymar"],
+            "gols_jogador_B":[1,1] 
+        } 
+    ]
+}

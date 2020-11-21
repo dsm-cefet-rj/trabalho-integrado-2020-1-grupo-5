@@ -3,6 +3,7 @@ import ListagemPartidas from './components/partidas/TabelaPartidas';
 import FormPartida from './components/partidas/FormPartida';
 import {store} from './Store';
 import {Provider} from 'react-redux'
+import {fetchPartidas} from './components/partidas/PartidasSlice'
 
 import {
   BrowserRouter as Router,
@@ -10,6 +11,8 @@ import {
   Route,
   Link
   } from "react-router-dom";
+
+store.dispatch(fetchPartidas());
 
 const App = (props) => {
   return( <>
