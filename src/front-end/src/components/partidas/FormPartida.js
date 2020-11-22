@@ -76,15 +76,16 @@ export default function FormPartida(props) {
                     </div>
                     <br></br>
     
-                    <label>Jogador Time A         Gols            </label><label>Jogador Time B         Gols</label><br/>
-    
+                    <label>Jogador_A</label>
                     <input type="text" name="jogador_A" maxlength="50" size="15" value={partida.jogador_A} onChange={handleInputChange} />
                     &nbsp;
+                    <label>Gols</label>
                     <input type="number" name="gols_jogador_A" min="0" max="99" value={partida.gols_jogador_A} onChange={handleInputChange} />
-                    &nbsp;
-
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>Jogador_B</label>
                     <input type="text" name="jogador_B" maxlength="50" size="15" value={partida.jogador_B} onChange={handleInputChange} />
                     &nbsp;
+                    <label>Gols</label>
                     <input type="number" name="gols_jogador_B" min="0" max="99" value={partida.gols_jogador} onChange={handleInputChange} />
                     <br></br><br></br>
                     <input type="submit" value="Salvar" />
