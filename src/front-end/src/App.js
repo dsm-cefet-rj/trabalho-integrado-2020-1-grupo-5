@@ -4,6 +4,9 @@ import FormPartida from './components/partidas/FormPartida';
 import {store} from './Store';
 import {Provider} from 'react-redux'
 import {fetchPartidas} from './components/partidas/PartidasSlice'
+import ListagemJogadores from './components/jogadores/TabelaJogadores';
+import FormJogador from './components/jogadores/FormJogador';
+import {fetchJogadores} from './components/jogadores/JogadoresSlice'
 
 import {
   BrowserRouter as Router,
@@ -13,6 +16,7 @@ import {
   } from "react-router-dom";
 
 store.dispatch(fetchPartidas());
+store.dispatch(fetchJogadores());
 
 const App = (props) => {
   return( <>
@@ -23,14 +27,17 @@ const App = (props) => {
                     <ul>
                       <li><Link to="/">Partidas</Link></li>
                       <li><Link to="/partidas/novo">Ranking</Link></li>
-                      <li><Link to="/partidas">Cadastros</Link></li>
+                      <li><Link to="/jogadores">Cadastros</Link></li>
                     </ul>
                   </nav>
                   <Switch>
-                    <Route path="/partidas/novo"><FormPartida/></Route>
-                    <Route path="/partidas/:id"><FormPartida/></Route>
-                    <Route path="/partidas"><ListagemPartidas/></Route>
-                    <Route path="/"><ListagemPartidas/></Route>
+                    <Route exact path="/"><ListagemPartidas/></Route>
+                    <Route exact path="/partidas"><ListagemPartidas/></Route>
+                    <Route exact path="/partidas/novo"><FormPartida/></Route>
+                    <Route exact path="/partidas/:id"><FormPartida/></Route>            
+                    <Route exact path="/jogadores"><ListagemJogadores/></Route>
+                    <Route exact path="/jogadores/novo"><FormJogador/></Route>
+                    <Route exact path="/jogadores/:id"><FormJogador/></Route>
                   </Switch>
                 </div>
               </Router>
