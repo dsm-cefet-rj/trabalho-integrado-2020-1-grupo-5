@@ -11,7 +11,15 @@
             "jogador_A":["Cristiano", "Mbappé"],
             "gols_jogador_A":[1,1], 
             "jogador_B":["Messi","Neymar"],
-            "gols_jogador_B":[1,1] 
+            "gols_jogador_B":[1,1]
+        } 
+    ],
+
+    "jogadores": 
+    [
+        {   "id":1,
+            "data_nascimento":"31/10/1970", 
+            "nome":"Lucas"
         } 
     ]
 }
