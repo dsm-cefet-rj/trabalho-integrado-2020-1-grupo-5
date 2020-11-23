@@ -6,8 +6,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import AddIcon from '@material-ui/icons/Add';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SportsSoccerIcon from '@material-ui/icons/SportsSoccer';
+import ListIcon from '@material-ui/icons/List';
+import FolderIcon from '@material-ui/icons/Folder';
 import {Link} from "react-router-dom";
 
 
@@ -19,22 +21,23 @@ export default function Drawer(props){
             onClose={props.toggleDrawerHandler(false)} >
             <Box width={250}>
                 <List>
-                    <ListItem key="Futadm">
-                        <ListItemText primary="Futadm"/>
+                    <ListItem key="Perfil">
+                    <   ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                        <ListItemText primary="Perfil"/>
                     </ListItem>
                 </List>
                 <Divider/>
                 <List>
                     <ListItem button key="Partidas" onClick={props.toggleDrawerHandler(false)} component={Link} to="/">
-                        <ListItemIcon><AddIcon /></ListItemIcon>
+                        <ListItemIcon><SportsSoccerIcon /></ListItemIcon>
                         <ListItemText primary="Partidas" />
                     </ListItem>
                     <ListItem button key="Ranking" onClick={props.toggleDrawerHandler(false)} component={Link} to="/partidas/novo">
-                        <ListItemIcon><AccountTreeIcon /></ListItemIcon>
+                        <ListItemIcon><ListIcon /></ListItemIcon>
                         <ListItemText primary="Ranking" />
                     </ListItem>
                     <ListItem button key="Cadastros" onClick={props.toggleDrawerHandler(false)} component={Link} to="/jogadores">
-                        <ListItemIcon><AccountTreeIcon /></ListItemIcon>
+                        <ListItemIcon><FolderIcon /></ListItemIcon>
                         <ListItemText primary="Cadastros" />
                     </ListItem>
                 </List>
