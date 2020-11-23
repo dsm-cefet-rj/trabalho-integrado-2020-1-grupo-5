@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles({
@@ -78,8 +79,8 @@ const LinhaPartida = (props) => {
               <td>{props.partida.gols_time_B}</td>
               <td>{props.partida.time_B}</td>
             </Link>
-            <td><Link to={`/partidas/${props.partida.id}`}><button>Editar</button></Link></td>
-            <td><IconButton id="excluir_partida" name="excluir_partida" onClick={() => props.onClickExcluirPartida(props.partida.id)}><DeleteIcon /></IconButton></td>
+            <td><Link to={`/partidas/${props.partida.id}`}><IconButton id="edita_partida" ><EditIcon/></IconButton></Link></td>
+            <td><IconButton id="edita_partida" name="excluir_partida" onClick={() => props.onClickExcluirPartida(props.partida.id)}><DeleteIcon /></IconButton></td>
           </tr>
      );
   }else{
