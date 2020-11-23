@@ -32,7 +32,7 @@ export default function ButtonAppBar(props) {
           <Typography variant="h6" className={classes.title}>
             Futadm
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Sair</Button>
         </Toolbar>
       </AppBar>
     </div>
