@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {store} from './Store';
 import {Provider} from 'react-redux'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider, createMuiTheme, responsiveFontSizes  } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import AppBar from './components/layout/AppBar';
+import Drawer from './components/layout/Drawer';
 
 import ListagemPartidas from './components/partidas/TabelaPartidas';
 import FormPartida, {VisualizarPartida} from './components/partidas/FormPartida';
@@ -34,7 +36,17 @@ let theme = createMuiTheme({
 
 theme = responsiveFontSizes(theme);
 
+
 const App = (props) => {
+  //estado do drawer
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  //handler de abrir e fechar o drawer
+  const toggleDrawerHandler = (open) => (event) => {
+    if (event?.type === 'keydown' && (event?.key === 'Tab' || event?.key === 'Shift')) {
+        return;
+    }
+    setDrawerOpen(open);
+  };
   return( <>
             <ThemeProvider theme={theme}>
               <CssBaseline />
@@ -42,13 +54,8 @@ const App = (props) => {
               <Container maxWidth="sm">
               <Router>
                 <div>
-                  <nav>
-                    <ul>
-                      <li><Link to="/">Partidas</Link></li>
-                      <li><Link to="/partidas/novo">Ranking</Link></li>
-                      <li><Link to="/jogadores">Cadastros</Link></li>
-                    </ul>
-                  </nav>
+                <AppBar toggleDrawerHandler={toggleDrawerHandler} />
+                <Drawer open={drawerOpen} toggleDrawerHandler={toggleDrawerHandler} />
                   <Switch>
                     <Route exact path="/"><ListagemPartidas/></Route>
                     
