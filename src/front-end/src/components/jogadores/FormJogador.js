@@ -1,56 +1,86 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useHistory } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {addJogador, updateJogador} from './JogadoresSlice'
+import {addJogadorServer, updateJogadorServer, selectJogadoresById} from './JogadoresSlice'
+import {jogadorSchema} from './JogadorSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from "react-hook-form";
+import Button from '@material-ui/core/Button';
 
 export default function FormJogador(props) {
     
     //inicializa o estado com o hook useState
-    const jogadores = useSelector(state => state.jogadores.jogadores) 
     const history  = useHistory();
     const dispatch = useDispatch();
 
     let { id } = useParams();
     id = parseInt(id);
 
-    const [jogador, setJogador] = useState(
-        id ? jogadores.filter((p) => p.id === id)[0] ?? {} : {});
+    const jogadorFound = useSelector(state => selectJogadoresById(state, id))
+    const { register, handleSubmit, errors } = useForm({
+        resolver: yupResolver(jogadorSchema)
+    });
+
+    const [jogadorOnLoad] = useState(
+        id ? jogadorFound ?? jogadorSchema.cast({}): jogadorSchema.cast({}));
 
     const [actionType, ] = useState(
-        id  ? jogadores.filter((p) => p.id === id)[0] 
+        id  ? jogadorFound 
                 ? 'jogadores/updateJogador'
                 : 'jogadores/addJogador'
             : 'jogadores/addJogador');
 
-    //Atualiza o estado usando o setJogador
-    function handleInputChange(e) {
-        setJogador( {...jogador, [e.target.name]: e.target.value});
-    }
-    
-
-    function handleSubmit(e){
-        e.preventDefault();
+    function onSubmit(jogador){
         if(actionType === 'jogadores/addJogador'){
-            dispatch(addJogador(jogador));
+            dispatch(addJogadorServer(jogador));
         }else{
-            dispatch(updateJogador(jogador));
+            dispatch(updateJogadorServer({...jogador, id: jogadorFound.id}));
         }
+        
         history.push('/jogadores');
-    }
+    }    
 
     return( <>
-                <h1>{(jogador.id ?? 0) === 0 ? "Novo Jogador" : "Editar Jogador"}</h1>
+                <h1>{(jogadorOnLoad.id ?? 0) === 0 ? "Novo Jogador" : "Editar Jogador"}</h1>
 
-                <form onSubmit={handleSubmit}>
-                    <label>Nome:</label><br/> 
-                    <input type="text" name="nome" value={jogador.nome} onChange={handleInputChange} />
-                    <br></br><br></br>
-                    <label>Data de Nascimento:</label><br/> 
-                    <input type="text" name="data_nascimento" value={jogador.data_nascimento} onChange={handleInputChange} />
-                    <br></br>
-                    <br></br>
-                    <input type="submit" value="Salvar" />
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <label>
+                        Nome:
+                        <input type="text" name="nome" defaultValue={jogadorOnLoad.nome} ref={register} />
+                        &nbsp;<span>{errors.nome?.message}</span>
+                    </label>
+                    <br/>
+                    <label>
+                    Data de Nascimento:
+                        <input type="text" name="data_nascimento" defaultValue={jogadorOnLoad.data_nascimento} ref={register} />
+                        &nbsp;<span>{errors.data_nascimento?.message}</span>
+                    </label>
+                    <br/>
+                    <Button type="submit" id="Salvar" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                 </form>
             </>
         );
+}
+
+export function VisualizarJogador() {
+    let { id } = useParams();
+    id = parseInt(id);
+ 
+    const jogadorFound = useSelector(state => selectJogadoresById(state, id))
+
+    const [jogadorOnLoad] = useState(
+        id ? jogadorFound ?? jogadorSchema.cast({}): jogadorSchema.cast({}));
+
+    return( <>
+                <tr>
+                    <td>Nome:</td>
+                    <td>{jogadorOnLoad.nome}</td>
+                </tr>
+                <br></br>
+                <tr> 
+                    <td>Data de Nascimento:</td>
+                    <td>{jogadorOnLoad.data_nascimento}</td>
+                </tr>
+            </>
+    );
 }

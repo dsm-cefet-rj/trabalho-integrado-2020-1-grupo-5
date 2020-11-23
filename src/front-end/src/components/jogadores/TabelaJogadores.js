@@ -1,22 +1,50 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
+import {deleteJogadorServer, fetchJogadores, selectAllJogadores} from './JogadoresSlice'
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
+});
 
 export default function ListagemJogador(props) {
   
-  const jogadoresState = useSelector(state => state.jogadores);
-  const jogadores = jogadoresState.jogadores;
-  const status = jogadoresState.status;
-  const error = jogadoresState.error;
-  
+  const jogadores = useSelector(selectAllJogadores)
+  const status = useSelector(state => state.jogadores.status);
+  const error = useSelector(state => state.jogadores.error);
+
   const dispatch = useDispatch();
   
+  const classes = useStyles();
+    
   function handleClickExcluirJogador(id){
-      dispatch({type: 'delete_jogador', payload:id})
+    dispatch(deleteJogadorServer(id));
   }
 
+  useEffect(() => {
+    if (status === 'not_loaded' ) {
+        dispatch(fetchJogadores())
+    }else if(status === 'failed'){
+        setTimeout(()=>dispatch(fetchJogadores()), 5000);
+    }
+  }, [status, dispatch])
+
+
   let tabelaJogadores = '';
-  if(status === 'loaded'){
+  if(status === 'loaded' || status === 'saved' || status === 'deleted'){
     tabelaJogadores = <TabelaJogadores jogadores={jogadores} onClickExcluirJogador={handleClickExcluirJogador} />;
   }else if(status === 'loading'){
     tabelaJogadores = <div>Carregando os jogadores...</div>;
@@ -29,14 +57,11 @@ export default function ListagemJogador(props) {
   }
 
   return( <>
-            <div id='lbl_titulo_pagina'>Listagem de jogadores</div><br/>
-            <form>
-              <label>Nome:</label> <input type="text" onChange={ProcurarJogador}/>
-              &nbsp;
-              <Link to="/jogadores/novo"><button id="Novo Jogador" name="btn_novo_jogador">Novo Jogador</button></Link><br/><br/>
-              <br/><br/>
-              {tabelaJogadores}
-            </form>
+            <div id="lbl_titulo_pagina"><Typography variant="h3">Listagem de Jogadores</Typography></div><br/>
+            <label>Nome:</label> <input type="text" onChange={ProcurarJogador}/>
+            &nbsp;
+            <Button className={classes.root} id="Novo Jogador" name="btn_novo_jogador" to="/jogadores/novo" component={Link}>Novo Jogador</Button><br/><br/>
+            {tabelaJogadores}
           </>
   );
 }
@@ -45,9 +70,11 @@ const LinhaJogador = (props) => {
   if(props != null && props.jogador != null && props.jogador.id != null){
       return(
           <tr>
-            <td>{props.jogador.nome}</td>
+            <Link to={`/jogadores/visualizar/${props.jogador.id}`}>
+              <td>{props.jogador.nome}</td>
+            </Link>
             <td><Link to={`/jogadores/${props.jogador.id}`}><button>Editar</button></Link></td>
-            <td><button id="excluir_jogador" name="excluir_jogador" onClick={() => props.onClickExcluirJogador(props.jogador.id)}>Del</button></td>
+            <td><IconButton id="excluir_jogador" name="excluir_jogador" onClick={() => props.onClickExcluirJogador(props.jogador.id)}><DeleteIcon /></IconButton></td>
           </tr>
      );
   }else{

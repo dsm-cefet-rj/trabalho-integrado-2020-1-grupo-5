@@ -1,22 +1,50 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
+import {deletePartidaServer, fetchPartidas, selectAllPartidas} from './PartidasSlice'
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
+});
 
 export default function ListagemPartida(props) {
   
-  const partidasState = useSelector(state => state.partidas);
-  const partidas = partidasState.partidas;
-  const status = partidasState.status;
-  const error = partidasState.error;
-  
+  const partidas = useSelector(selectAllPartidas)
+  const status = useSelector(state => state.partidas.status);
+  const error = useSelector(state => state.partidas.error);
+
   const dispatch = useDispatch();
   
+  const classes = useStyles();
+    
   function handleClickExcluirPartida(id){
-      dispatch({type: 'delete_partida', payload:id})
+    dispatch(deletePartidaServer(id));
   }
 
+  useEffect(() => {
+    if (status === 'not_loaded' ) {
+        dispatch(fetchPartidas())
+    }else if(status === 'failed'){
+        setTimeout(()=>dispatch(fetchPartidas()), 5000);
+    }
+  }, [status, dispatch])
+
+
   let tabelaPartidas = '';
-  if(status === 'loaded'){
+  if(status === 'loaded' || status === 'saved' || status === 'deleted'){
     tabelaPartidas = <TabelaPartidas partidas={partidas} onClickExcluirProjeto={handleClickExcluirPartida} />;
   }else if(status === 'loading'){
     tabelaPartidas = <div>Carregando as partidas...</div>;
@@ -29,14 +57,11 @@ export default function ListagemPartida(props) {
   }
 
   return( <>
-            <div id='lbl_titulo_pagina'>Listagem de Partidas</div><br/>
-            <form>
-              <label>Data:</label> <input type="text" name="data" onChange={ProcurarPartida}/>
-              &nbsp;
-              <Link to="/partidas/novo"><button id="Nova Partida" name="btn_nova_partida">Nova Partida</button></Link><br/><br/>
-              <br/><br/>
-              {tabelaPartidas}
-            </form>
+            <div id="lbl_titulo_pagina"><Typography variant="h3">Listagem de Partidas</Typography></div><br/>
+            <label>Data:</label> <input type="text" name="data" onChange={ProcurarPartida}/>
+            &nbsp;
+            <Button className={classes.root} id="Nova Partida" name="btn_nova_partida" to="/partidas/novo" component={Link}>Nova Partida</Button><br/><br/>
+            {tabelaPartidas}
           </>
   );
 }
@@ -45,14 +70,16 @@ const LinhaPartida = (props) => {
   if(props != null && props.partida != null && props.partida.id != null){
       return(
           <tr>
-            <td>{props.partida.data}</td>
-            <td>{props.partida.time_A}</td>
-            <td>{props.partida.gols_time_A}</td>
-            <td>X</td>
-            <td>{props.partida.gols_time_B}</td>
-            <td>{props.partida.time_B}</td>
+            <Link to={`/partidas/visualizar/${props.partida.id}`}>
+              <td>{props.partida.data}</td>
+              <td>{props.partida.time_A}</td>
+              <td>{props.partida.gols_time_A}</td>
+              <td>X</td>
+              <td>{props.partida.gols_time_B}</td>
+              <td>{props.partida.time_B}</td>
+            </Link>
             <td><Link to={`/partidas/${props.partida.id}`}><button>Editar</button></Link></td>
-            <td><button id="excluir_partida" name="excluir_partida" onClick={() => props.onClickExcluirPartida(props.partida.id)}>Del</button></td>
+            <td><IconButton id="excluir_partida" name="excluir_partida" onClick={() => props.onClickExcluirPartida(props.partida.id)}><DeleteIcon /></IconButton></td>
           </tr>
      );
   }else{

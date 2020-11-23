@@ -1,49 +1,51 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import {createSlice, createAsyncThunk, createEntityAdapter} from '@reduxjs/toolkit'
+import {httpDelete, httpPut, httpGet, httpPost} from '../../utils'
+import {baseUrl} from '../../baseUrl'
 
-export const fetchJogadores = createAsyncThunk('projetos/fetchJogadores', 
-    async () => {
-        return await (await fetch('http://localhost:3004/jogadores')).json();
+const jogadoresAdapter = createEntityAdapter();
+
+const initialState = jogadoresAdapter.getInitialState({
+    status: 'not_loaded',
+    error: null
 });
 
-const initialState = {
-    status: 'not_loaded',
-    jogadores: [],
-    error: null
-};
+export const fetchJogadores = createAsyncThunk('jogadores/fetchJogadores', async () => {
+    return await httpGet(`${baseUrl}/jogadores`);
+});
 
-function addJogadorReducer(state, jogador){
-    let proxId = 1 + state.jogadores.map(p => p.id).reduce((x, y) => Math.max(x,y));
-    state.jogadores = state.jogadores.concat([{...jogador, id: proxId}]);
-}
+export const deleteJogadorServer = createAsyncThunk('jogadores/deleteJogadorServer', async (idJogador) => {
+    await httpDelete(`${baseUrl}/jogadores/${idJogador}`);
+    return idJogador;
+});
 
-function deleteJogadorReducer(state, id){
-    state.jogadores = state.jogadores.filter((p) => p.id !== id);
-}
+export const addJogadorServer = createAsyncThunk('jogadores/addJogadorServer', async (jogador) => {
+    return await httpPost(`${baseUrl}/jogadores`, jogador);
+});
 
-function updateJogadorReducer(state, jogador){
-    let index = state.jogadores.map(p => p.id).indexOf(jogador.id);
-    state.jogadores.splice(index, 1, jogador);
-}    
-
-function fullfillJogadoresReducer(jogadoresState, jogadoresFetched){
-    jogadoresState.status = 'loaded';
-    jogadoresState.jogadores = jogadoresFetched;
-}
+export const updateJogadorServer = createAsyncThunk('jogadores/updateJogadorServer', async (jogador) => {
+    return await httpPut(`${baseUrl}/jogadores/${jogador.id}`, jogador);
+});
 
 export const jogadoresSlice = createSlice({
     name: 'jogadores',
     initialState: initialState,
-    reducers: {
-       addJogador:    (state, action) => addJogadorReducer(state, action.payload),
-       updateJogador: (state, action) => updateJogadorReducer(state, action.payload),
-       deleteJogador: (state, action) => deleteJogadorReducer(state, action.payload)
-    },
     extraReducers: {
        [fetchJogadores.pending]: (state, action) => {state.status = 'loading'},
-       [fetchJogadores.fulfilled]: (state, action) => fullfillJogadoresReducer(state, action.payload),
-       [fetchJogadores.rejected]: (state, action) => {state.status = 'failed'; state.error = action.error.message}
+       [fetchJogadores.fulfilled]: (state, action) => {state.status = 'loaded'; jogadoresAdapter.setAll(state, action.payload);},
+       [fetchJogadores.rejected]: (state, action) => {state.status = 'failed'; state.error = action.error.message},
+       [deleteJogadorServer.pending]: (state, action) => {state.status = 'loading'},
+       [deleteJogadorServer.fulfilled]: (state, action) => {state.status = 'deleted'; jogadoresAdapter.removeOne(state, action.payload);},
+       [addJogadorServer.pending]: (state, action) => {state.status = 'loading'},
+       [addJogadorServer.fulfilled]: (state, action) => {state.status = 'saved'; jogadoresAdapter.addOne(state, action.payload);},
+       [updateJogadorServer.pending]: (state, action) => {state.status = 'loading'},
+       [updateJogadorServer.fulfilled]: (state, action) => {state.status = 'saved'; jogadoresAdapter.upsertOne(state, action.payload);},
     },
 })
 
-export const { addJogador, updateJogador, deleteJogador } = jogadoresSlice.actions
 export default jogadoresSlice.reducer
+
+export const {
+    selectAll: selectAllJogadores,
+    selectById: selectJogadoresById,
+    selectIds: selectJogadoresIds
+} = jogadoresAdapter.getSelectors(state => state.jogadores)

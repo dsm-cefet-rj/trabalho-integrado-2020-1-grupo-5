@@ -1,49 +1,51 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import {createSlice, createAsyncThunk, createEntityAdapter} from '@reduxjs/toolkit'
+import {httpDelete, httpPut, httpGet, httpPost} from '../../utils'
+import {baseUrl} from '../../baseUrl'
 
-export const fetchPartidas = createAsyncThunk('projetos/fetchPartidas', 
-    async () => {
-        return await (await fetch('http://localhost:3004/partidas')).json();
+const partidasAdapter = createEntityAdapter();
+
+const initialState = partidasAdapter.getInitialState({
+    status: 'not_loaded',
+    error: null
 });
 
-const initialState = {
-    status: 'not_loaded',
-    partidas: [],
-    error: null
-};
+export const fetchPartidas = createAsyncThunk('partidas/fetchPartidas', async () => {
+    return await httpGet(`${baseUrl}/partidas`);
+});
 
-function addPartidaReducer(state, partida){
-    let proxId = 1 + state.partidas.map(p => p.id).reduce((x, y) => Math.max(x,y));
-    state.partidas = state.partidas.concat([{...partida, id: proxId}]);
-}
+export const deletePartidaServer = createAsyncThunk('partidas/deletePartidaServer', async (idPartida) => {
+    await httpDelete(`${baseUrl}/partidas/${idPartida}`);
+    return idPartida;
+});
 
-function deletePartidaReducer(state, id){
-    state.partidas = state.partidas.filter((p) => p.id !== id);
-}
+export const addPartidaServer = createAsyncThunk('partidas/addPartidaServer', async (partida) => {
+    return await httpPost(`${baseUrl}/partidas`, partida);
+});
 
-function updatePartidaReducer(state, partida){
-    let index = state.partidas.map(p => p.id).indexOf(partida.id);
-    state.partidas.splice(index, 1, partida);
-}    
-
-function fullfillPartidasReducer(partidasState, partidasFetched){
-    partidasState.status = 'loaded';
-    partidasState.partidas = partidasFetched;
-}
+export const updatePartidaServer = createAsyncThunk('partidas/updatePartidaServer', async (partida) => {
+    return await httpPut(`${baseUrl}/partidas/${partida.id}`, partida);
+});
 
 export const partidasSlice = createSlice({
     name: 'partidas',
     initialState: initialState,
-    reducers: {
-       addPartida:    (state, action) => addPartidaReducer(state, action.payload),
-       updatePartida: (state, action) => updatePartidaReducer(state, action.payload),
-       deletePartida: (state, action) => deletePartidaReducer(state, action.payload)
-    },
     extraReducers: {
        [fetchPartidas.pending]: (state, action) => {state.status = 'loading'},
-       [fetchPartidas.fulfilled]: (state, action) => fullfillPartidasReducer(state, action.payload),
-       [fetchPartidas.rejected]: (state, action) => {state.status = 'failed'; state.error = action.error.message}
+       [fetchPartidas.fulfilled]: (state, action) => {state.status = 'loaded'; partidasAdapter.setAll(state, action.payload);},
+       [fetchPartidas.rejected]: (state, action) => {state.status = 'failed'; state.error = action.error.message},
+       [deletePartidaServer.pending]: (state, action) => {state.status = 'loading'},
+       [deletePartidaServer.fulfilled]: (state, action) => {state.status = 'deleted'; partidasAdapter.removeOne(state, action.payload);},
+       [addPartidaServer.pending]: (state, action) => {state.status = 'loading'},
+       [addPartidaServer.fulfilled]: (state, action) => {state.status = 'saved'; partidasAdapter.addOne(state, action.payload);},
+       [updatePartidaServer.pending]: (state, action) => {state.status = 'loading'},
+       [updatePartidaServer.fulfilled]: (state, action) => {state.status = 'saved'; partidasAdapter.upsertOne(state, action.payload);},
     },
 })
 
-export const { addPartida, updatePartida, deletePartida } = partidasSlice.actions
 export default partidasSlice.reducer
+
+export const {
+    selectAll: selectAllPartidas,
+    selectById: selectPartidasById,
+    selectIds: selectPartidasIds
+} = partidasAdapter.getSelectors(state => state.partidas)
