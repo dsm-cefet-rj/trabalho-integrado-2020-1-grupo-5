@@ -76,15 +76,18 @@ export default function FormJogador(props) {
                         inputRef={register}
                         helperText={errors.nome?.message} 
                         error={errors.nome?.message ? true: false}
+                        InputLabelProps={{ shrink: true }}
                     />
                     <TextField 
-                        id="data_nascimento" 
+                        id="data_nascimento"
+                        type="date"
                         label="Data de nascimento" 
-                        name="data_nascimento" 
+                        name="data_nascimento"
                         defaultValue={jogadorOnLoad.data_nascimento} 
                         inputRef={register}
                         helperText={errors.data_nascimento?.message} 
                         error={errors.data_nascimento?.message ? true: false} 
+                        InputLabelProps={{ shrink: true }}
                     />
                     <Button type="submit" id="Salvar" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                 </form>
