@@ -19,7 +19,7 @@ import {
 } from "react-router-dom";
 
 //importe as cores que selecionou anteriormente
-import {lightGreen, orange} from '@material-ui/core/colors';
+import {lightGreen} from '@material-ui/core/colors';
 
 let theme = createMuiTheme({
  
@@ -28,7 +28,7 @@ let theme = createMuiTheme({
       main: lightGreen[500],
     },
     secondary: {
-      main: orange[800],
+      main: lightGreen[800],
     },
   },
 });

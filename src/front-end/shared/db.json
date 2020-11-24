@@ -17,8 +17,8 @@
   ],
   "jogadores": [
     {
-      "data_nascimento": "31/10/1970",
       "nome": "Lucas",
+      "data_nascimento": "31/10/1970",
       "id": 1
     }
   ]

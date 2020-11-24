@@ -6,6 +6,21 @@ import {jogadorSchema} from './JogadorSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(5),
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(3),
+    textAlign: 'left',
+    color: theme.palette.text.secondary,
+  },
+}));
 
 export default function FormJogador(props) {
     
@@ -63,6 +78,7 @@ export default function FormJogador(props) {
 }
 
 export function VisualizarJogador() {
+    const classes = useStyles(); 
     let { id } = useParams();
     id = parseInt(id);
  
@@ -71,16 +87,15 @@ export function VisualizarJogador() {
     const [jogadorOnLoad] = useState(
         id ? jogadorFound ?? jogadorSchema.cast({}): jogadorSchema.cast({}));
 
-    return( <>
-                <tr>
-                    <td>Nome:</td>
-                    <td>{jogadorOnLoad.nome}</td>
-                </tr>
-                <br></br>
-                <tr> 
-                    <td>Data de Nascimento:</td>
-                    <td>{jogadorOnLoad.data_nascimento}</td>
-                </tr>
+    return( <> 
+            <div className={classes.root}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <Paper className={classes.paper}><b>Nome:</b> {jogadorOnLoad.nome} </Paper>
+                        <Paper className={classes.paper}><b>Data de Nascimento:</b> {jogadorOnLoad.data_nascimento} </Paper>
+                    </Grid>
+                </Grid>
+            </div>       
             </>
     );
 }

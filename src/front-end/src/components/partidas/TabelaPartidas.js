@@ -44,7 +44,7 @@ export default function ListagemPartida(props) {
   }
 
   return( <>
-            <div id="lbl_titulo_pagina"><Typography variant="h3">Listagem de Partidas</Typography></div><br/>
+            <div id="lbl_titulo_pagina"><h1>Partidas</h1></div><br/>
             <label>Data:</label> <input type="text" name="data" onChange={ProcurarPartida}/>
             &nbsp;
             <Button id="Nova Partida" name="btn_nova_partida" to="/partidas/novo" variant='contained' color='primary' component={Link}>Nova Partida</Button><br/><br/>
