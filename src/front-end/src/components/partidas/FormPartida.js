@@ -6,12 +6,38 @@ import {partidaSchema} from './PartidaSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import IconButton from '@material-ui/core/IconButton';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      padding: theme.spacing(5),
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(3),
+      textAlign: 'left',
+      color: theme.palette.text.secondary,
+    },
+    form: {
+      '& > *': {
+          margin: theme.spacing(1),
+          width: '25ch',
+      },
+    },
+  
+  }));
 
 export default function FormPartida(props) {
     
     //inicializa o estado com o hook useState
     const history  = useHistory();
     const dispatch = useDispatch();
+    const classes = useStyles(); 
 
     let { id } = useParams();
     id = parseInt(id);
@@ -43,82 +69,82 @@ export default function FormPartida(props) {
     return( <>
                 <h1>{(partidaOnLoad.id ?? 0) === 0 ? "Nova Partida" : "Editar Partida"}</h1>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <label>
-                        Data:
-                        <input type="text" name="data" defaultValue={partidaOnLoad.data} ref={register} />
-                        &nbsp;<span>{errors.data?.message}</span>
-                    </label>
-                    <br/> 
-                    <label>
-                        Árbitro:
-                        <input type="text" name="arbitro" defaultValue={partidaOnLoad.arbitro} ref={register} />
-                        &nbsp;<span>{errors.arbitro?.message}</span>
-                    </label>
-                    <br/> 
-                    <label>
-                        Local:
-                        <input type="text" name="local" defaultValue={partidaOnLoad.local} ref={register} />
-                        &nbsp;<span>{errors.local?.message}</span>
-                    </label>
-                    <br/> 
-
-                    <label>
-                        <input type="text" name="time_A" defaultValue={partidaOnLoad.time_A} ref={register} />
-                        &nbsp;<span>{errors.time_A?.message}</span>
-                    </label>
-                    <label>
-                        <input type="number" name="gols_time_A" defaultValue={partidaOnLoad.gols_time_A} ref={register} />
-                        &nbsp;<span>{errors.gols_time_A?.message}</span>
-                    </label>
-                    &nbsp;
-                    X
-                    &nbsp;
-                    <label>
-                        <input type="number" name="gols_time_B" defaultValue={partidaOnLoad.gols_time_B} ref={register} />
-                        &nbsp;<span>{errors.gols_time_B?.message}</span>
-                    </label>
-                    &nbsp;
-                    <label>
-                        <input type="text" name="time_B" defaultValue={partidaOnLoad.time_B} ref={register} />
-                        &nbsp;<span>{errors.time_B?.message}</span>
-                    </label>
-                    <br/> 
-
-                    <hr></hr>
-                    <div>
-                        <input classname="adiciona_jogador_A" type="button" name="adiciona_jogador_A" value="+A"/>
-                        <input classname="adiciona_jogador_B" type="button" name="adiciona_jogador_B" value="+B" />
-                    </div>
-                    <br></br>
-    
-                    <label>
-                        Jogador_A
-                        <input type="text" name="jogador_A" defaultValue={partidaOnLoad.jogador_A} ref={register} />
-                        &nbsp;<span>{errors.jogador_A?.message}</span>
-                    </label>
-                    &nbsp;
-                    <label>
-                        Gols
-                        <input type="number" name="gols_jogador_A" defaultValue={partidaOnLoad.gols_jogador_A} ref={register} />
-                        &nbsp;<span>{errors.gols_jogador_A?.message}</span>
-                    </label>
-                    <br/> 
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label>
-                        Jogador_B
-                        <input type="text" name="jogador_B" defaultValue={partidaOnLoad.jogador_B} ref={register} />
-                        &nbsp;<span>{errors.jogador_B?.message}</span>
-                    </label>
-                    &nbsp;
-                    <label>
-                        Gols
-                        <input type="number" name="gols_jogador_B" defaultValue={partidaOnLoad.gols_jogador_B} ref={register} />
-                        &nbsp;<span>{errors.v?.message}</span>
-                    </label>
-                    <br/> 
-                    <br></br><br></br>
-                    <Button type="submit" id="Salvar" name="btn_salvar_partida" variant="contained" color="primary">Salvar</Button>
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate autoComplete="off" >
+                    <TextField 
+                        id="data_partida" 
+                        label="Data" 
+                        name="data"
+                        type="date"
+                        defaultValue={partidaOnLoad.data} 
+                        inputRef={register}
+                        helperText={errors.data?.message} 
+                        error={errors.data?.message ? true: false}
+                        InputLabelProps={{ shrink: true }}
+                        required
+                    />
+                    <TextField
+                        id="arbitro"
+                        label="Árbitro" 
+                        name="arbitro"
+                        defaultValue={partidaOnLoad.data_arbitro} 
+                        inputRef={register}
+                        helperText={errors.arbitro?.message} 
+                        error={errors.arbitro?.message ? true: false} 
+                        InputLabelProps={{ shrink: true }}
+                    />
+                    <TextField
+                        id="local"
+                        label="Local" 
+                        name="local"
+                        defaultValue={partidaOnLoad.local} 
+                        inputRef={register}
+                        helperText={errors.local?.message} 
+                        error={errors.local?.message ? true: false} 
+                        InputLabelProps={{ shrink: true }}
+                    />
+                    <TextField
+                        id="time_A"
+                        label="Time_A" 
+                        name="time_A"
+                        defaultValue={partidaOnLoad.time_A} 
+                        inputRef={register}
+                        helperText={errors.time_A?.message} 
+                        error={errors.time_A?.message ? true: false} 
+                        InputLabelProps={{ shrink: true }}
+                    />
+                    <TextField
+                        id="gols_time_A"
+                        label="Gols" 
+                        name="gols_time_A"
+                        defaultValue={partidaOnLoad.gols_time_A} 
+                        inputRef={register}
+                        helperText={errors.gols_time_A?.message} 
+                        error={errors.gols_time_A?.message ? true: false} 
+                        InputLabelProps={{ shrink: true }}
+                    />
+                    <TextField
+                        id="time_B"
+                        label="Time_B" 
+                        name="time_B"
+                        defaultValue={partidaOnLoad.time_B} 
+                        inputRef={register}
+                        helperText={errors.time_B?.message} 
+                        error={errors.time_B?.message ? true: false} 
+                        InputLabelProps={{ shrink: true }}
+                    /> 
+                    <TextField
+                        id="gols_time_B"
+                        label="Gols" 
+                        name="gols_time_B"
+                        defaultValue={partidaOnLoad.gols_time_B} 
+                        inputRef={register}
+                        helperText={errors.gols_time_B?.message} 
+                        error={errors.gols_time_B?.message ? true: false} 
+                        InputLabelProps={{ shrink: true }}
+                    />
+                    <IconButton id="adiciona_jogador_A" name="adiciona_jogador_A"><AddCircleIcon color='primary'/></IconButton>
+                    <IconButton id="adiciona_jogador_B" name="adiciona_jogador_B"><AddCircleIcon color='primary'/></IconButton>               
+                    <Button type="submit" id="Salvar" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                 </form>
             </>
         );
