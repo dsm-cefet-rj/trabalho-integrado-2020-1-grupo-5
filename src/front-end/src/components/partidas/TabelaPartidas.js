@@ -18,6 +18,8 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -92,20 +94,22 @@ export default function ListagemPartida(props) {
 const LinhaPartida = (props) => {
   if(props != null && props.partida != null && props.partida.id != null){
       return(
-        <>
-        <ListItem>
-          <ListItem button component={Link} to = {`/partidas/visualizar/${props.partida.id}`}>
-            <ListItemText primary={props.partida.data}/>
-            <ListItemText primary={props.partida.time_A}/>
-            <ListItemText primary={props.partida.gols_time_A}/>
-            <ListItemIcon><ClearIcon/></ListItemIcon>
-            <ListItemText primary={props.partida.gols_time_B}/>
-            <ListItemText primary={props.partida.time_B}/>
+        <>      
+          <ListItem>
+            <ListItem button component={Link} to = {`/partidas/visualizar/${props.partida.id}`}>
+              <Hidden xsDown>
+                <ListItemText secondary={props.partida.data}/>
+              </Hidden>
+              <ListItemText primary="Icon" secondary={props.partida.time_A}/>
+              <ListItemText primary={props.partida.gols_time_A}/>
+              <ListItemText>X</ListItemText>
+              <ListItemText primary={props.partida.gols_time_B}/>
+              <ListItemText primary="Icon" secondary={props.partida.time_B}/>
+            </ListItem>           
+              <Link to={`/partidas/${props.partida.id}`}><IconButton id="edita_partida" Link to={`/partidas/${props.partida.id}`} ><EditIcon/></IconButton></Link>
+              <IconButton id="deleta_partida" name="excluir_partida" onClick={() => props.onClickExcluirPartida(props.partida.id)}><DeleteIcon /></IconButton>
           </ListItem>
-          
-            <Link to={`/partidas/${props.partida.id}`}><IconButton id="edita_partida" Link to={`/partidas/${props.partida.id}`} ><EditIcon/></IconButton></Link>
-            <IconButton id="deleta_partida" name="excluir_partida" onClick={() => props.onClickExcluirPartida(props.partida.id)}><DeleteIcon /></IconButton>
-        </ListItem>
+
         </>
      );
   }else{

@@ -91,6 +91,7 @@ export default function FormPartida(props) {
                         helperText={errors.arbitro?.message} 
                         error={errors.arbitro?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
+                        style = {{width: 150}}
                     />
                     <TextField
                         id="local"
@@ -101,46 +102,58 @@ export default function FormPartida(props) {
                         helperText={errors.local?.message} 
                         error={errors.local?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
+                        style = {{width: 150}}
                     />
+                    <br></br>
+                    <br></br>
                     <TextField
                         id="time_A"
                         label="Time_A" 
                         name="time_A"
+                        select
                         defaultValue={partidaOnLoad.time_A} 
                         inputRef={register}
                         helperText={errors.time_A?.message} 
                         error={errors.time_A?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
+                        style = {{width: 150}}
                     />
                     <TextField
                         id="gols_time_A"
                         label="Gols" 
                         name="gols_time_A"
+                        type="number"
+                        size="small"
                         defaultValue={partidaOnLoad.gols_time_A} 
                         inputRef={register}
                         helperText={errors.gols_time_A?.message} 
                         error={errors.gols_time_A?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
+                        style = {{width: 30}}
                     />
                     <TextField
                         id="time_B"
                         label="Time_B" 
                         name="time_B"
+                        select
                         defaultValue={partidaOnLoad.time_B} 
                         inputRef={register}
                         helperText={errors.time_B?.message} 
                         error={errors.time_B?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
+                        style = {{width: 150}}
                     /> 
                     <TextField
                         id="gols_time_B"
                         label="Gols" 
                         name="gols_time_B"
+                        type="number"
                         defaultValue={partidaOnLoad.gols_time_B} 
                         inputRef={register}
                         helperText={errors.gols_time_B?.message} 
                         error={errors.gols_time_B?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
+                        style = {{width: 30}}
                     />
                     <IconButton id="adiciona_jogador_A" name="adiciona_jogador_A"><AddCircleIcon color='primary'/></IconButton>
                     <IconButton id="adiciona_jogador_B" name="adiciona_jogador_B"><AddCircleIcon color='primary'/></IconButton>               
