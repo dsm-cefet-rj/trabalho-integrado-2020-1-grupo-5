@@ -15,9 +15,20 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import Grid from '@material-ui/core/Grid';
+
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
 
 
 export default function ListagemJogador(props) {
+  const classes = useStyles();
   
   const jogadores = useSelector(selectAllJogadores)
   const status = useSelector(state => state.jogadores.status);
@@ -56,9 +67,16 @@ export default function ListagemJogador(props) {
             <Box display="flex" justifyContent="flex-start" >
               <Box>
                 <div id="lbl_titulo_pagina"><h1>Jogadores</h1></div>
-                <label>Nome:</label>
-                <br></br>
-                <input type="text" onChange={ProcurarJogador}/>
+                <div className={classes.root}>
+                  <Grid container spacing={1} alignItems="flex-end">
+                    <Grid item>
+                      <SearchIcon />
+                    </Grid>
+                    <Grid item>
+                      <TextField id="procura_jogador" label="Nome" />
+                    </Grid>
+                  </Grid>
+                </div>
               </Box>
             </Box>
 
@@ -81,11 +99,11 @@ const LinhaJogador = (props) => {
           <ListItem button component={Link} to = {`/jogadores/visualizar/${props.jogador.id}`}>
             <ListItemText primary={props.jogador.nome}/>
           </ListItem>
-          <ListItemSecondaryAction>
+          
             <Link to={`/jogadores/${props.jogador.id}`}><IconButton id="edita_jogador" Link to={`/jogadores/${props.jogador.id}`} ><EditIcon/></IconButton></Link>
             <IconButton id="deleta_jogador" name="excluir_jogador" onClick={() => props.onClickExcluirJogador(props.jogador.id)}><DeleteIcon /></IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
+
+      </ListItem>
         </>
      );
   }else{

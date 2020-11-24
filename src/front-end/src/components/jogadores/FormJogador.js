@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +21,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
     color: theme.palette.text.secondary,
   },
+  form: {
+    '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+    },
+  },
+
 }));
 
 export default function FormJogador(props) {
@@ -27,6 +35,7 @@ export default function FormJogador(props) {
     //inicializa o estado com o hook useState
     const history  = useHistory();
     const dispatch = useDispatch();
+    const classes = useStyles(); 
 
     let { id } = useParams();
     id = parseInt(id);
@@ -58,19 +67,25 @@ export default function FormJogador(props) {
     return( <>
                 <h1>{(jogadorOnLoad.id ?? 0) === 0 ? "Novo Jogador" : "Editar Jogador"}</h1>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <label>
-                        Nome:
-                        <input type="text" name="nome" defaultValue={jogadorOnLoad.nome} ref={register} />
-                        &nbsp;<span>{errors.nome?.message}</span>
-                    </label>
-                    <br/>
-                    <label>
-                    Data de Nascimento:
-                        <input type="text" name="data_nascimento" defaultValue={jogadorOnLoad.data_nascimento} ref={register} />
-                        &nbsp;<span>{errors.data_nascimento?.message}</span>
-                    </label>
-                    <br/>
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.form}  noValidate autoComplete="off" >
+                    <TextField 
+                        id="nome_jogador" 
+                        label="Nome" 
+                        name="nome" 
+                        defaultValue={jogadorOnLoad.nome} 
+                        inputRef={register}
+                        helperText={errors.nome?.message} 
+                        error={errors.nome?.message ? true: false}
+                    />
+                    <TextField 
+                        id="data_nascimento" 
+                        label="Data de nascimento" 
+                        name="data_nascimento" 
+                        defaultValue={jogadorOnLoad.data_nascimento} 
+                        inputRef={register}
+                        helperText={errors.data_nascimento?.message} 
+                        error={errors.data_nascimento?.message ? true: false} 
+                    />
                     <Button type="submit" id="Salvar" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                 </form>
             </>
