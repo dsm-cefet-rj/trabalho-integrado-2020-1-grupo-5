@@ -64,7 +64,7 @@ export default function ListagemJogador(props) {
 
             <Box display="flex" justifyContent="flex-end">
               <Box>
-                <Button id="Novo Jogador" name="btn_novo_jogador" to="/jogadores/novo" variant='contained' color='primary' component={Link}>Novo Jogador</Button>
+                <IconButton component={Link} to="/jogadores/novo" id="Novo Jogador" name="btn_novo_jogador"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
               </Box>
             </Box>
             {tabelaJogadores}
