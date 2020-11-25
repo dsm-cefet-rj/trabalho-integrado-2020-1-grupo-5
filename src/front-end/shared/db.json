@@ -1,25 +1,41 @@
 {
   "partidas": [
     {
-      "data": "31/10/2020",
-      "arbitro": "José Filho",
-      "local": "Maracanã",
-      "time_A": "Barcelona",
       "gols_time_A": 2,
-      "gols_time_B": 2,
-      "time_B": "M. City",
-      "jogador_A": "Cristiano",
-      "gols_jogador_A": 1,
-      "jogador_B": "Messi",
-      "gols_jogador_B": 1,
+      "local": "Maracanã",
+      "arbitro": "oo",
+      "data": "2020-11-05",
+      "time_A": "Azul",
+      "time_B": "Vermelho",
+      "gols_time_B": "2",
       "id": 1
     }
   ],
   "jogadores": [
     {
-      "nome": "Lucas",
-      "data_nascimento": "31/10/1970",
+      "nome": "Lucas Lima",
+      "data_nascimento": "2020-11-09",
       "id": 1
+    },
+    {
+      "nome": "teste",
+      "data_nascimento": "1998-10-09",
+      "id": 2
+    },
+    {
+      "nome": " vbvbvbv",
+      "data_nascimento": "2020-11-05",
+      "id": 3
+    }
+  ],
+  "times": [
+    {
+      "nome": "Azul",
+      "id": 1
+    },
+    {
+      "nome": "Vermelho",
+      "id": 2
     }
   ]
 }

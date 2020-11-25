@@ -79,7 +79,7 @@ export default function FormJogador(props) {
                         InputLabelProps={{ shrink: true }}
                     />
                     <TextField 
-                        id="data_nascimento"
+                        id="data_nascimento_jogador"
                         type="date"
                         label="Data de nascimento" 
                         name="data_nascimento"
@@ -89,7 +89,7 @@ export default function FormJogador(props) {
                         error={errors.data_nascimento?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
                     />
-                    <Button type="submit" id="Salvar" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="salva_jogador" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                 </form>
             </>
         );

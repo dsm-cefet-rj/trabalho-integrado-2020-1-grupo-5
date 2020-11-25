@@ -86,7 +86,7 @@ export default function FormPartida(props) {
                         required
                     />
                     <TextField
-                        id="arbitro"
+                        id="arbitro_partida"
                         label="Árbitro" 
                         name="arbitro"
                         defaultValue={partidaOnLoad.data_arbitro} 
@@ -97,7 +97,7 @@ export default function FormPartida(props) {
                         style = {{width: 150}}
                     />
                     <TextField
-                        id="local"
+                        id="local_partida"
                         label="Local" 
                         name="local"
                         defaultValue={partidaOnLoad.local} 
@@ -160,7 +160,7 @@ export default function FormPartida(props) {
                     />
                     <IconButton id="adiciona_jogador_A" name="adiciona_jogador_A"><AddCircleIcon color='primary'/></IconButton>
                     <IconButton id="adiciona_jogador_B" name="adiciona_jogador_B"><AddCircleIcon color='primary'/></IconButton>               
-                    <Button type="submit" id="Salvar" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="salva_partida" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                 </form>
             </>
         );

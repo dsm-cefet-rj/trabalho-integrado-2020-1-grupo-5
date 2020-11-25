@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 import {deletePartidaServer, fetchPartidas, selectAllPartidas} from './PartidasSlice'
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,8 +10,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
 import Box from '@material-ui/core/Box';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ClearIcon from '@material-ui/icons/Clear';
+
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import TextField from '@material-ui/core/TextField';
@@ -73,7 +71,7 @@ export default function ListagemPartida(props) {
                       <SearchIcon />
                     </Grid>
                     <Grid item>
-                      <TextField type="date" id="procura_partida" label="Data" InputLabelProps={{ shrink: true }}/>
+                      <TextField type="date" id="procura_data_partida" label="Data" InputLabelProps={{ shrink: true }}/>
                     </Grid>
                   </Grid>
                 </div>

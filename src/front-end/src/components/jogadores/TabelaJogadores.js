@@ -54,31 +54,17 @@ export default function ListagemJogador(props) {
     tabelaJogadores = <div>Error: {error}</div>;
   }
 
-  function ProcurarJogador(data){
-    props.setJogador(props.jogadores.filter((value) => value.data === data));
-  }
-
   return( <>
           <div style={{ width: '100%' }}>
             <Box display="flex" justifyContent="flex-start" >
               <Box>
                 <div id="lbl_titulo_pagina"><h1>Jogadores</h1></div>
-                <div className={classes.root}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <SearchIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="procura_jogador" label="Nome" />
-                    </Grid>
-                  </Grid>
-                </div>
               </Box>
             </Box>
 
             <Box display="flex" justifyContent="flex-end">
               <Box>
-                <IconButton component={Link} to="/jogadores/novo" id="Novo Jogador" name="btn_novo_jogador"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
+                <IconButton component={Link} to="/jogadores/novo" id="novo_jogador" name="btn_novo_jogador"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
               </Box>
             </Box>
             {tabelaJogadores}

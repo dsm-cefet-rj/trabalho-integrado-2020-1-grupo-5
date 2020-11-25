@@ -54,25 +54,11 @@ export default function ListagemTime(props) {
     tabelaTimes = <div>Error: {error}</div>;
   }
 
-  function ProcurarTime(data){
-    props.setTime(props.timess.filter((value) => value.data === data));
-  }
-
   return( <>
           <div style={{ width: '100%' }}>
             <Box display="flex" justifyContent="flex-start" >
               <Box>
                 <div id="lbl_titulo_pagina"><h1>Times</h1></div>
-                <div className={classes.root}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <SearchIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="procura_time" label="Nome" />
-                    </Grid>
-                  </Grid>
-                </div>
               </Box>
             </Box>
 
