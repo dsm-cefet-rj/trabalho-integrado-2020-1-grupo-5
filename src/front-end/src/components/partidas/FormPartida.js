@@ -6,21 +6,24 @@ import {partidaSchema} from './PartidaSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      padding: theme.spacing(5),
+      padding: theme.spacing(3),
       flexGrow: 1,
     },
     paper: {
       padding: theme.spacing(3),
-      textAlign: 'left',
+      textAlign: 'center',
       color: theme.palette.text.secondary,
     },
     form: {
@@ -171,6 +174,8 @@ export function VisualizarPartida() {
 
     const [partidaOnLoad] = useState(
         id ? partidaFound ?? partidaSchema.cast({}): partidaSchema.cast({}));
+    
+    const classes = useStyles();
  
      return( <>
                  <tr>

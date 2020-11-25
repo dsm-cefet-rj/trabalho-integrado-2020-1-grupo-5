@@ -101,10 +101,10 @@ const LinhaPartida = (props) => {
                 <ListItemText secondary={props.partida.data}/>
               </Hidden>
               <ListItemText primary="Icon" secondary={props.partida.time_A}/>
-              <ListItemText primary={props.partida.gols_time_A}/>
-              <ListItemText>X</ListItemText>
-              <ListItemText primary={props.partida.gols_time_B}/>
-              <ListItemText primary="Icon" secondary={props.partida.time_B}/>
+                <ListItemText primary={props.partida.gols_time_A}/>
+                <ListItemText>X</ListItemText>
+                <ListItemText primary={props.partida.gols_time_B}/>
+                <ListItemText primary="Icon" secondary={props.partida.time_B}/>
             </ListItem>           
               <Link to={`/partidas/${props.partida.id}`}><IconButton id="edita_partida" Link to={`/partidas/${props.partida.id}`} ><EditIcon/></IconButton></Link>
               <IconButton id="deleta_partida" name="excluir_partida" onClick={() => props.onClickExcluirPartida(props.partida.id)}><DeleteIcon /></IconButton>

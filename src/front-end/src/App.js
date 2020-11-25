@@ -11,6 +11,8 @@ import ListagemPartidas from './components/partidas/TabelaPartidas';
 import FormPartida, {VisualizarPartida} from './components/partidas/FormPartida';
 import ListagemJogadores from './components/jogadores/TabelaJogadores';
 import FormJogador, {VisualizarJogador} from './components/jogadores/FormJogador';
+import ListagemTimes from './components/times/TabelaTimes';
+import FormTime, {VisualizarTime} from './components/times/FormTime';
 
 import {
   BrowserRouter as Router,
@@ -67,6 +69,11 @@ const App = (props) => {
                     <Route exact path="/jogadores/:id"><FormJogador/></Route>
                     <Route exact path="/jogadores/visualizar/:id"><VisualizarJogador/></Route>
                     <Route exact path="/jogadores"><ListagemJogadores/></Route>
+
+                    <Route exact path="/times/novo"><FormTime/></Route>
+                    <Route exact path="/times/:id"><FormTime/></Route>
+                    <Route exact path="/times/visualizar/:id"><VisualizarTime/></Route>
+                    <Route exact path="/times"><ListagemTimes/></Route>
                   </Switch>
                 </div>
               </Router>
