@@ -13,19 +13,14 @@
   ],
   "jogadores": [
     {
-      "nome": "Lucas Lima",
-      "data_nascimento": "2020-11-09",
+      "nome": "Lucas",
+      "data_nascimento": "1900-11-27T03:06:28.000Z",
       "id": 1
     },
     {
       "nome": "teste",
-      "data_nascimento": "1998-10-09",
+      "data_nascimento": "2020-11-25T03:00:00.000Z",
       "id": 2
-    },
-    {
-      "nome": " vbvbvbv",
-      "data_nascimento": "2020-11-05",
-      "id": 3
     }
   ],
   "times": [
