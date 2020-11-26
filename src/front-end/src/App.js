@@ -9,10 +9,15 @@ import Drawer from './components/layout/Drawer';
 
 import ListagemPartidas from './components/partidas/TabelaPartidas';
 import FormPartida, {VisualizarPartida} from './components/partidas/FormPartida';
+
 import ListagemJogadores from './components/jogadores/TabelaJogadores';
 import FormJogador, {VisualizarJogador} from './components/jogadores/FormJogador';
+
 import ListagemTimes from './components/times/TabelaTimes';
 import FormTime, {VisualizarTime} from './components/times/FormTime';
+
+import ListagemAdms from './components/adms/TabelaAdms';
+import FormAdm, {VisualizarAdm} from './components/adms/FormAdm';
 
 import {
   BrowserRouter as Router,
@@ -74,6 +79,11 @@ const App = (props) => {
                     <Route exact path="/times/:id"><FormTime/></Route>
                     <Route exact path="/times/visualizar/:id"><VisualizarTime/></Route>
                     <Route exact path="/times"><ListagemTimes/></Route>
+
+                    <Route exact path="/adms/novo"><FormAdm/></Route>
+                    <Route exact path="/adms/:id"><FormAdm/></Route>
+                    <Route exact path="/adms/visualizar/:id"><VisualizarAdm/></Route>
+                    <Route exact path="/adms"><ListagemAdms/></Route>
                   </Switch>
                 </div>
               </Router>

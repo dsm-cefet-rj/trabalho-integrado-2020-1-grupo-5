@@ -1,26 +1,9 @@
 {
-  "partidas": [
-    {
-      "gols_time_A": 2,
-      "local": "Maracanã",
-      "arbitro": "oo",
-      "data": "2020-11-05",
-      "time_A": "Azul",
-      "time_B": "Vermelho",
-      "gols_time_B": "2",
-      "id": 1
-    }
-  ],
   "jogadores": [
     {
-      "nome": "Lucas",
-      "data_nascimento": "1900-11-27T03:06:28.000Z",
+      "nome": "jogador teste",
+      "data_nascimento": "2020-11-13T03:00:00.000Z",
       "id": 1
-    },
-    {
-      "nome": "teste",
-      "data_nascimento": "2020-11-25T03:00:00.000Z",
-      "id": 2
     }
   ],
   "times": [
@@ -32,5 +15,14 @@
       "nome": "Vermelho",
       "id": 2
     }
-  ]
+  ],
+  "adms": [
+    {
+      "nome": "adm teste",
+      "usuario": "usuário adm 1",
+      "senha": "senhaadm",
+      "id": 1
+    }
+  ],
+  "partidas": []
 }

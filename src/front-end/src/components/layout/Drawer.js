@@ -77,7 +77,7 @@ export default function Drawer(props){
                                 <ListItemIcon><BeenhereIcon /></ListItemIcon>
                                 <ListItemText primary="Times" />
                             </ListItem>
-                            <ListItem button key="ADMs" className={classes.nested} onClick={props.toggleDrawerHandler(false)} component={Link} to="/jogadores">
+                            <ListItem button key="ADMs" className={classes.nested} onClick={props.toggleDrawerHandler(false)} component={Link} to="/adms">
                                 <ListItemIcon><SupervisorAccountIcon/></ListItemIcon>
                                 <ListItemText primary="ADMs" />
                             </ListItem>
