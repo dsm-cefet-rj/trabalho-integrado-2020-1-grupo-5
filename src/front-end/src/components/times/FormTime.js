@@ -78,7 +78,9 @@ export default function FormTime(props) {
                         error={errors.nome?.message ? true: false}
                         InputLabelProps={{ shrink: true }}
                     />
-                    <Button type="submit" id="salva_time" name="btn_salvar_time" variant="contained" color="primary">Salvar</Button>
+                    <br/><br/>
+                    <Button type="submit" id="salva_time" name="salva_time" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="cancela_time" name="cancela_time" variant="contained" onClick={() => { history.push('/times') }}>Cancelar</Button>                    
                 </form>
             </>
         );

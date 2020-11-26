@@ -78,6 +78,7 @@ export default function FormJogador(props) {
                         error={errors.nome?.message ? true: false}
                         InputLabelProps={{ shrink: true }}
                     />
+                    <br/>
                     <TextField 
                         id="data_nascimento_jogador"
                         type="date"
@@ -89,7 +90,9 @@ export default function FormJogador(props) {
                         error={errors.data_nascimento?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
                     />
+                    <br/><br/>
                     <Button type="submit" id="salva_jogador" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="cancela_jogador" name="cancela_jogador" variant="contained" onClick={() => { history.push('/jogadores') }}>Cancelar</Button>                    
                 </form>
             </>
         );

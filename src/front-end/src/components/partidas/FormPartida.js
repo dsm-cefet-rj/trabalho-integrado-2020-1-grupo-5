@@ -10,10 +10,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import Select from '@material-ui/core/Select';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -85,6 +82,7 @@ export default function FormPartida(props) {
                         InputLabelProps={{ shrink: true }}
                         required
                     />
+                    <br/>
                     <TextField
                         id="arbitro_partida"
                         label="Árbitro" 
@@ -96,6 +94,7 @@ export default function FormPartida(props) {
                         InputLabelProps={{ shrink: true }}
                         style = {{width: 150}}
                     />
+                    <br/>
                     <TextField
                         id="local_partida"
                         label="Local" 
@@ -107,8 +106,7 @@ export default function FormPartida(props) {
                         InputLabelProps={{ shrink: true }}
                         style = {{width: 150}}
                     />
-                    <br></br>
-                    <br></br>
+                    <br/>
                     <TextField
                         id="time_A"
                         label="Time_A" 
@@ -138,7 +136,7 @@ export default function FormPartida(props) {
                         id="time_B"
                         label="Time_B" 
                         name="time_B"
-                        select
+                        select 
                         defaultValue={partidaOnLoad.time_B} 
                         inputRef={register}
                         helperText={errors.time_B?.message} 
@@ -160,7 +158,9 @@ export default function FormPartida(props) {
                     />
                     <IconButton id="adiciona_jogador_A" name="adiciona_jogador_A"><AddCircleIcon color='primary'/></IconButton>
                     <IconButton id="adiciona_jogador_B" name="adiciona_jogador_B"><AddCircleIcon color='primary'/></IconButton>               
+                    <br/><br/>
                     <Button type="submit" id="salva_partida" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="cancela_partida" name="cancela_partida" variant="contained" onClick={() => { history.push('/partidas') }}>Cancelar</Button>
                 </form>
             </>
         );
@@ -187,6 +187,6 @@ export function VisualizarPartida() {
                      <td>Árbitro:</td>
                      <td>{partidaOnLoad.arbitro}</td>
                  </tr>
-             </>
+            </>
      );
  }

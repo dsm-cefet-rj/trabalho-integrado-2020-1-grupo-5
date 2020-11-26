@@ -64,7 +64,7 @@ export default function ListagemTime(props) {
 
             <Box display="flex" justifyContent="flex-end">
               <Box>
-                <IconButton component={Link} to="/times/novo" id="Novo Time" name="btn_novo_time"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
+                <IconButton component={Link} to="/times/novo" id="novo_time" name="novo_time"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
               </Box>
             </Box>
             {tabelaTimes}
@@ -83,7 +83,7 @@ const LinhaTime = (props) => {
           </ListItem>
           
             <Link to={`/times/${props.time.id}`}><IconButton id="edita_time" Link to={`/times/${props.time.id}`} ><EditIcon/></IconButton></Link>
-            <IconButton id="deleta_time" name="excluir_time" onClick={() => props.onClickExcluirTime(props.time.id)}><DeleteIcon /></IconButton>
+            <IconButton id="deleta_time" name="deleta_time" onClick={() => props.onClickExcluirTime(props.time.id)}><DeleteIcon /></IconButton>
 
       </ListItem>
         </>

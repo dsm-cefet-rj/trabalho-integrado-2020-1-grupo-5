@@ -82,6 +82,7 @@ export default function ListagemPartida(props) {
               <Box>
                 <IconButton component={Link} to="/partidas/novo" id="nova_partida" name="btn_nova_partida"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
               </Box>
+
             </Box>
             {tabelaPartidas}
           </div>

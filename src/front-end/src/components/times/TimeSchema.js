@@ -7,6 +7,6 @@ setLocale(ptForm)
 export let timeSchema = object().shape(
     {
         id: number(),
-        nome: string().required().max(30)
+        nome: string().required().max(50)
     }
 )
