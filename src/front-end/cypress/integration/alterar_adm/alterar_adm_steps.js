@@ -19,7 +19,7 @@ Given('que é exibida a tela de adms', () =>{
     cy.visit('http://localhost:3000/adms');
 });
 
-When('clico em novo adm', () => {
+When('clico em excluir adm', () => {
     cy.get('[id="deleta_adm"]').click();
 });
 

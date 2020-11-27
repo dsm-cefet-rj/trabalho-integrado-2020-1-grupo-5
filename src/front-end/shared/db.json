@@ -19,19 +19,8 @@
     {
       "nome": "Vermelho",
       "id": 2
-    },
-    {
-      "nome": "gfdgfd",
-      "id": 3
     }
   ],
-  "adms": [
-    {
-      "nome": "adm teste",
-      "usuario": "usuário adm 1",
-      "senha": "senhaadm",
-      "id": 1
-    }
-  ],
+  "adms": [],
   "partidas": []
 }
