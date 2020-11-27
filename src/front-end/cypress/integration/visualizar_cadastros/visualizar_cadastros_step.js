@@ -6,7 +6,7 @@ Given('que é exibida a tela de partidas', () => {
 });
 
 When('clico em cadastros', () => {
-    cy,get(['id=tab_cadastros']).click();
+    cy.get(['id=tab_cadastros']).click();
 });
 
 Then('é exibida a tela de cadastros', ( )=> {
@@ -19,7 +19,7 @@ Given('que é exibida a tela de cadastros', () => {
 });
 
 When('clico em jogadores', () => {
-    cy,get(['id=jogador_cadastros']).click();
+    cy.get(['id=jogador_cadastros']).click();
 });
 
 Then('é exibida a tela de jogadores', () => {
@@ -33,7 +33,7 @@ Given('que é exibida a tela de cadastros', () => {
 });
 
 When('clico em times', () => {
-    cy,get(['id=times_cadastros']).click();
+    cy.get(['id=times_cadastros']).click();
 });
 
 Then('é exibida a tela de times', () => {
@@ -47,7 +47,7 @@ Given('que é exibida a tela de cadastros', () => {
 });
 
 When('clico em adms', () => {
-    cy,get(['id=adm_cadastros']).click();
+    cy.get(['id=adm_cadastros']).click();
 });
 
 Then('é exibida a tela de adms', () => {
