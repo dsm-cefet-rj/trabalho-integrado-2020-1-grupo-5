@@ -30,16 +30,3 @@ And('confirmo a exclusão', () =>{
 Then('é exibida a tela de cadastros', () =>{
     cy.visit('http://localhost:3000/adms');
 })
-
-//Cenário: Retornar para cadastros
-Given('que é exibida a tela de adms', () => {
-    cy.visit('http://localhost:3000/adms');
-});
-
-When('clico em voltar', () => {
-    cy.get('[id="cancela_adm"]').click();
-});
-
-Then('é exibida a tela de cadastros', () =>{
-    cy.visit('http://localhost:3000/adms');
-})

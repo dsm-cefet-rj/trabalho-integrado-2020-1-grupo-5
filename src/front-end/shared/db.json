@@ -4,6 +4,11 @@
       "nome": "jogador teste",
       "data_nascimento": "2020-11-13T03:00:00.000Z",
       "id": 1
+    },
+    {
+      "nome": "Diego Maradona",
+      "data_nascimento": "1960-10-30T03:00:00.000Z",
+      "id": 2
     }
   ],
   "times": [
