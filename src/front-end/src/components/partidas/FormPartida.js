@@ -11,6 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 import Select from '@material-ui/core/Select';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -111,7 +113,7 @@ export default function FormPartida(props) {
                         id="time_A"
                         label="Time_A" 
                         name="time_A"
-                        select
+                        
                         defaultValue={partidaOnLoad.time_A} 
                         inputRef={register}
                         helperText={errors.time_A?.message} 
@@ -136,7 +138,7 @@ export default function FormPartida(props) {
                         id="time_B"
                         label="Time_B" 
                         name="time_B"
-                        select 
+                        
                         defaultValue={partidaOnLoad.time_B} 
                         inputRef={register}
                         helperText={errors.time_B?.message} 
@@ -187,6 +189,20 @@ export function VisualizarPartida() {
                      <td>Árbitro:</td>
                      <td>{partidaOnLoad.arbitro}</td>
                  </tr>
+                <br></br>
+
+                <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                        time a
+                    </Grid>
+                    <Grid item xs={4}>
+                        placar
+                    </Grid>
+                    <Grid item xs={4}>
+                        time b
+                    </Grid>
+                </Grid>
+            
             </>
      );
  }
