@@ -4,6 +4,11 @@
       "nome": "Teste",
       "data_nascimento": "2020-11-07T03:00:00.000Z",
       "id": 1
+    },
+    {
+      "nome": "Diego Maradona",
+      "data_nascimento": "1960-10-30T03:00:00.000Z",
+      "id": 2
     }
   ],
   "times": [
@@ -16,6 +21,7 @@
       "id": 2
     }
   ],
+<<<<<<< HEAD
   "adms": [
     {
       "nome": "adm teste",
@@ -36,4 +42,8 @@
       "id": 1
     }
   ]
+=======
+  "adms": [],
+  "partidas": []
+>>>>>>> 0c31ca4fc39b6649fbe16c8348330b847f97dc0f
 }

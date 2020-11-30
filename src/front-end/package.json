@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.8.5",
     "cucumber": "^7.0.0-rc.0",
     "cypress": "^5.6.0",
     "cypress-cucumber-preprocessor": "^4.0.0"

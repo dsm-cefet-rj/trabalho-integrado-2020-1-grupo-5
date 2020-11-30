@@ -5,6 +5,7 @@ Funcionalidade: Alterar partidas
     Dado que é exibida a tela de partidas
     Quando clico em modificar dados da partida
     Então a tela de nova partida é exibida
+      E o formulário está preenchido
 
   Cenário: Excluir uma partida
     Dado que é exibida a tela de partidas
@@ -23,7 +24,7 @@ Funcionalidade: Alterar partidas
     Então aparecem os dados correspondentes disponíveis no banco de dados
 
   Cenário: Adicionar jogador que participou da partida
-    Dado que que é exibida a tela de nova partida
+    Dado que é exibida a tela de nova partida
     Quando clico no ícone de adicionar 
     Então o novo jogador pode ser adicionado
 

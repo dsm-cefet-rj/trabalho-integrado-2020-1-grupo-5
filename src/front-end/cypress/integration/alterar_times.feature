@@ -16,8 +16,3 @@ Funcionalidade: Alterar times
     Dado que é exibida a tela de times
     Quando clico em novo time
     Então é exibida a tela de novo time
-
-  Cenário: Retornar para cadastros
-    Dado que é exibida a tela de times
-    Quando clico em voltar
-    Então é exibida a tela de cadastros

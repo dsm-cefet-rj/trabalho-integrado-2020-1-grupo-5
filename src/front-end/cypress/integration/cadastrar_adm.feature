@@ -13,8 +13,3 @@ Funcionalidade: Cadastrar novos adms
     Dado que é exibida a tela de novo adm
     Quando clico em cancelar
     Então é exibido a tela de adms
-
-  Cenário: Retornar para adms
-    Dado que é exibida a tela de novo adm
-    Quando clico em voltar
-    Então é exibido a tela de adms
