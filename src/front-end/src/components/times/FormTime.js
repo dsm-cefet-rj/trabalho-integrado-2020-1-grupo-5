@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {useParams, useHistory } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {addTimeServer, updateTimeServer, selectTimesById} from './TimesSlice'
-import {timeSchema} from './TimeSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+
+import {addTimeServer, updateTimeServer, selectTimesById} from './TimesSlice'
+import {timeSchema} from './TimeSchema';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
 }));
+
 
 export default function FormTime(props) {
     
@@ -84,26 +85,4 @@ export default function FormTime(props) {
                 </form>
             </>
         );
-}
-
-export function VisualizarTime() {
-    const classes = useStyles(); 
-    let { id } = useParams();
-    id = parseInt(id);
- 
-    const timeFound = useSelector(state => selectTimesById(state, id))
-
-    const [timeOnLoad] = useState(
-        id ? timeFound ?? timeSchema.cast({}): timeSchema.cast({}));
-
-    return( <> 
-            <div className={classes.root}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper}><b>Nome:</b> {timeOnLoad.nome} </Paper>
-                    </Grid>
-                </Grid>
-            </div>       
-            </>
-    );
 }

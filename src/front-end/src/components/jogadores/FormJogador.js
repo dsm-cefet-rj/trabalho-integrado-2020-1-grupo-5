@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {useParams, useHistory } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {addJogadorServer, updateJogadorServer, selectJogadoresById} from './JogadoresSlice'
-import {jogadorSchema} from './JogadorSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+
+import {addJogadorServer, updateJogadorServer, selectJogadoresById} from './JogadoresSlice'
+import {jogadorSchema} from './JogadorSchema';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
 }));
+
 
 export default function FormJogador(props) {
     
@@ -110,27 +111,4 @@ export default function FormJogador(props) {
                 </form>
             </>
         );
-}
-
-export function VisualizarJogador() {
-    const classes = useStyles(); 
-    let { id } = useParams();
-    id = parseInt(id);
- 
-    const jogadorFound = useSelector(state => selectJogadoresById(state, id))
-
-    const [jogadorOnLoad] = useState(
-        id ? jogadorFound ?? jogadorSchema.cast({}): jogadorSchema.cast({}));
-
-    return( <> 
-            <div className={classes.root}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper}><b>Nome:</b> {jogadorOnLoad.nome} </Paper>
-                        <Paper className={classes.paper}><b>Data de Nascimento:</b> {jogadorOnLoad.data_nascimento.substring(0,10)} </Paper>
-                    </Grid>
-                </Grid>
-            </div>       
-            </>
-    );
 }

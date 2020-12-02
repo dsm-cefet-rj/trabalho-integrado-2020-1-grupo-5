@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 import {useParams, useHistory } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
-import {addPartidaServer, updatePartidaServer, selectPartidasById} from './PartidasSlice'
-import {partidaSchema} from './PartidaSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from "react-hook-form";
 import Button from '@material-ui/core/Button';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
-import Select from '@material-ui/core/Select';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+
+import {addPartidaServer, updatePartidaServer, selectPartidasById} from './PartidasSlice'
+import {partidaSchema} from './PartidaSchema';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
+  
 export default function FormPartida(props) {
     
     //inicializa o estado com o hook useState
@@ -167,42 +166,3 @@ export default function FormPartida(props) {
             </>
         );
 }
-
-export function VisualizarPartida() {
-    let { id } = useParams();
-    id = parseInt(id);
-
-    const partidaFound = useSelector(state => selectPartidasById(state, id))
-
-    const [partidaOnLoad] = useState(
-        id ? partidaFound ?? partidaSchema.cast({}): partidaSchema.cast({}));
-    
-    const classes = useStyles();
- 
-     return( <>
-                 <tr>
-                     <td>Data:</td>
-                     <td>{partidaOnLoad.data}</td>
-                 </tr>
-                 <br></br>
-                 <tr> 
-                     <td>Árbitro:</td>
-                     <td>{partidaOnLoad.arbitro}</td>
-                 </tr>
-                <br></br>
-
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        time a
-                    </Grid>
-                    <Grid item xs={4}>
-                        placar
-                    </Grid>
-                    <Grid item xs={4}>
-                        time b
-                    </Grid>
-                </Grid>
-            
-            </>
-     );
- }

@@ -5,7 +5,6 @@
       "data_nascimento": "2020-11-29T03:00:00.000Z",
       "id": 1
     },
-
     {
       "nome": "Diego Maradona",
       "data_nascimento": "1960-10-30T03:00:00.000Z",
@@ -14,11 +13,11 @@
   ],
   "times": [
     {
-      "nome": "Azul",
+      "nome": "Time Azul",
       "id": 1
     },
     {
-      "nome": "Vermelho",
+      "nome": "Time Vermelho",
       "id": 2
     }
   ],
@@ -32,13 +31,13 @@
   ],
   "partidas": [
     {
-      "gols_time_B": 1,
-      "time_B": "Teste2",
+      "gols_time_B": 3,
+      "time_B": "Time Vermelho",
       "gols_time_A": 1,
-      "time_A": "Teste1",
-      "local": "a",
-      "arbitro": "a",
-      "data": "2020-11-21",
+      "time_A": "Time Azul",
+      "local": "Teste",
+      "arbitro": "Teste",
+      "data": "2020-12-04",
       "id": 1
     }
   ]

@@ -7,14 +7,17 @@ import Container from '@material-ui/core/Container';
 import AppBar from './components/layout/AppBar';
 import Drawer from './components/layout/Drawer';
 
-import ListagemPartidas from './components/partidas/TabelaPartidas';
-import FormPartida, {VisualizarPartida} from './components/partidas/FormPartida';
+import ListagemPartidas from './components/partidas/ListagemPartida';
+import FormPartida from './components/partidas/FormPartida';
+import VisualizarPartida from './components/partidas/VisualizarPartida';
 
-import ListagemJogadores from './components/jogadores/TabelaJogadores';
-import FormJogador, {VisualizarJogador} from './components/jogadores/FormJogador';
+import ListagemJogadores from './components/jogadores/ListagemJogador';
+import FormJogador from './components/jogadores/FormJogador';
+import VisualizarJogador from './components/jogadores/VisualizarJogador';
 
-import ListagemTimes from './components/times/TabelaTimes';
-import FormTime, {VisualizarTime} from './components/times/FormTime';
+import ListagemTimes from './components/times/ListagemTime';
+import FormTime from './components/times/FormTime';
+import VisualizarTime from './components/times/VisualizarTime';
 
 import ListagemAdms from './components/adms/TabelaAdms';
 import FormAdm, {VisualizarAdm} from './components/adms/FormAdm';
