@@ -19,8 +19,9 @@ import ListagemTimes from './components/times/ListagemTime';
 import FormTime from './components/times/FormTime';
 import VisualizarTime from './components/times/VisualizarTime';
 
-import ListagemAdms from './components/adms/TabelaAdms';
-import FormAdm, {VisualizarAdm} from './components/adms/FormAdm';
+import ListagemAdms from './components/adms/ListagemAdm';
+import FormAdm from './components/adms/FormAdm';
+import VisualizarAdm from './components/adms/VisualizarAdm';
 
 import {
   BrowserRouter as Router,
