@@ -31,13 +31,13 @@
   ],
   "partidas": [
     {
-      "gols_time_B": 3,
+      "gols_time_B": 1,
       "time_B": "Time Vermelho",
-      "gols_time_A": 1,
+      "gols_time_A": 2,
       "time_A": "Time Azul",
-      "local": "Teste",
-      "arbitro": "Teste",
-      "data": "2020-12-04",
+      "local": "sdsdsd",
+      "arbitro": "a",
+      "data": "2020-12-11",
       "id": 1
     }
   ]

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useParams, useHistory } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,9 +8,13 @@ import { makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import {addPartidaServer, updatePartidaServer, selectPartidasById} from './PartidasSlice'
 import {partidaSchema} from './PartidaSchema';
+import {selectAllJogadores, fetchJogadores} from '../jogadores/JogadoresSlice'
+import {selectAllTimes, fetchTimes} from '../times/TimesSlice'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     form: {
       '& > *': {
           margin: theme.spacing(1),
-          width: '25ch',
       },
     },
   
@@ -38,7 +41,27 @@ export default function FormPartida(props) {
     //inicializa o estado com o hook useState
     const history  = useHistory();
     const dispatch = useDispatch();
-    const classes = useStyles(); 
+    const classes  = useStyles(); 
+
+    const [jogadoresTimeA, setJogadoresTimeA] = useState([]);
+    const [jogadoresTimeB, setJogadoresTimeB] = useState([]);
+    const jogadores = useSelector(selectAllJogadores);
+    const times = useSelector(selectAllTimes);
+
+    const addJogadorTimeA = () => {
+        setJogadoresTimeA(jogadoresTimeA => [...jogadoresTimeA, <AdicionaJogador jogadores={jogadores} />]);
+    };
+  
+    const addJogadorTimeB = () => {
+        setJogadoresTimeB(jogadoresTimeB => [...jogadoresTimeB, <AdicionaJogador jogadores={jogadores} />]);
+      };
+
+
+    useEffect(() => {
+       dispatch(fetchJogadores(jogadores))
+       dispatch(fetchTimes(times))
+    }, [] )
+  
 
     let { id } = useParams();
     id = parseInt(id);
@@ -82,18 +105,21 @@ export default function FormPartida(props) {
                         error={errors.data?.message ? true: false}
                         InputLabelProps={{ shrink: true }}
                         required
+                        size="small"
                     />
                     <br/>
                     <TextField
                         id="arbitro_partida"
                         label="Árbitro" 
                         name="arbitro"
-                        defaultValue={partidaOnLoad.data_arbitro} 
+                        defaultValue={partidaOnLoad.arbitro} 
                         inputRef={register}
                         helperText={errors.arbitro?.message} 
                         error={errors.arbitro?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
                         style = {{width: 150}}
+                        size="small"
+                        required
                     />
                     <br/>
                     <TextField
@@ -106,63 +132,148 @@ export default function FormPartida(props) {
                         error={errors.local?.message ? true: false} 
                         InputLabelProps={{ shrink: true }}
                         style = {{width: 150}}
-                    />
-                    <br/>
-                    <TextField
-                        id="time_A"
-                        label="Time_A" 
-                        name="time_A"
-                        
-                        defaultValue={partidaOnLoad.time_A} 
-                        inputRef={register}
-                        helperText={errors.time_A?.message} 
-                        error={errors.time_A?.message ? true: false} 
-                        InputLabelProps={{ shrink: true }}
-                        style = {{width: 150}}
-                    />
-                    <TextField
-                        id="gols_time_A"
-                        label="Gols" 
-                        name="gols_time_A"
-                        type="number"
                         size="small"
-                        defaultValue={partidaOnLoad.gols_time_A} 
-                        inputRef={register}
-                        helperText={errors.gols_time_A?.message} 
-                        error={errors.gols_time_A?.message ? true: false} 
-                        InputLabelProps={{ shrink: true }}
-                        style = {{width: 30}}
+                        required
                     />
-                    <TextField
-                        id="time_B"
-                        label="Time_B" 
-                        name="time_B"
-                        
-                        defaultValue={partidaOnLoad.time_B} 
-                        inputRef={register}
-                        helperText={errors.time_B?.message} 
-                        error={errors.time_B?.message ? true: false} 
-                        InputLabelProps={{ shrink: true }}
-                        style = {{width: 150}}
-                    /> 
-                    <TextField
-                        id="gols_time_B"
-                        label="Gols" 
-                        name="gols_time_B"
-                        type="number"
-                        defaultValue={partidaOnLoad.gols_time_B} 
-                        inputRef={register}
-                        helperText={errors.gols_time_B?.message} 
-                        error={errors.gols_time_B?.message ? true: false} 
-                        InputLabelProps={{ shrink: true }}
-                        style = {{width: 30}}
-                    />
-                    <IconButton id="adiciona_jogador_A" name="adiciona_jogador_A"><AddCircleIcon color='primary'/></IconButton>
-                    <IconButton id="adiciona_jogador_B" name="adiciona_jogador_B"><AddCircleIcon color='primary'/></IconButton>               
+                    <br/>                    
+                    
+                    <Grid container direction="row">
+                        <Grid container direction="column" item xs={6} >
+                           <Grid direction="row" justify="space-between">
+                                <TextField
+                                    id="time_A"
+                                    label="Time A" 
+                                    name="time_A"
+                                    size="small"
+                                     defaultValue={partidaOnLoad.time_A} 
+                                    inputRef={register}
+                                    helperText={errors.time_A?.message} 
+                                    error={errors.time_A?.message ? true: false} 
+                                    InputLabelProps={{ shrink: true }}
+                                    style = {{width: 100}}
+                                    size="small"
+                                    required
+                                />
+                                &nbsp;&nbsp;&nbsp;
+                                <TextField
+                                    id="gols_time_A"
+                                    label="Gols" 
+                                    name="gols_time_A"
+                                    type="number"
+                                    size="small"
+                                    defaultValue={partidaOnLoad.gols_time_A} 
+                                    inputRef={register}
+                                    helperText={errors.gols_time_A?.message} 
+                                    error={errors.gols_time_A?.message ? true: false} 
+                                    InputLabelProps={{ shrink: true }}
+                                    style = {{width: 35}}
+                                    size="small"
+                                    required
+                                />
+                            </Grid>
+                            <br/><br/>
+                            <Grid container direction="row" justify="flex-start">
+                                {jogadoresTimeA.map((item, i) => (<Grid key={i}>{item}</Grid>))}
+                            </Grid>
+
+                            <Grid container direction="row" justify="flex-start">
+                                <IconButton 
+                                    id="adiciona_jogador_A" 
+                                    name="adiciona_jogador_A"
+                                    onClick={() => {addJogadorTimeA()}} >
+                                        <AddCircleIcon color='primary'/>
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container direction="column" item xs={6}>
+                            <Grid direction="row" justify="space-between">
+                                <TextField
+                                    id="gols_time_B"
+                                    label="Gols" 
+                                    name="gols_time_B"
+                                    type="number"
+                                    size="small"
+                                    defaultValue={partidaOnLoad.gols_time_B} 
+                                    inputRef={register}
+                                    helperText={errors.gols_time_B?.message} 
+                                    error={errors.gols_time_B?.message ? true: false} 
+                                    InputLabelProps={{ shrink: true }}
+                                    style = {{width: 35}}
+                                    size="small"
+                                    required
+                                />
+                                 &nbsp;&nbsp;&nbsp;
+                                <TextField
+                                    id="time_B"
+                                    label="Time B" 
+                                    name="time_B"
+                                    size="small"
+                                    defaultValue={partidaOnLoad.time_B} 
+                                    inputRef={register}
+                                    helperText={errors.time_B?.message} 
+                                    error={errors.time_B?.message ? true: false} 
+                                    InputLabelProps={{ shrink: true }}
+                                    style = {{width: 100}}
+                                    size="small"
+                                    required
+                                /> 
+                            </Grid>
+                            <br/><br/>
+                            <Grid container direction="row" justify="flex-start">
+                                {jogadoresTimeB.map((item, i) => (<Grid key={i}>{item}</Grid>))}
+                            </Grid>
+                            
+                            <Grid container direction="row" justify="flex-start">
+                                <IconButton 
+                                    id="adiciona_jogador_B" 
+                                    name="adiciona_jogador_B"
+                                    onClick={() => {addJogadorTimeB()}} >
+                                        <AddCircleIcon color='primary'/>
+                                </IconButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+           
                     <br/><br/>
+                    
                     <Button type="submit" id="salva_partida" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                     <Button type="submit" id="cancela_partida" name="cancela_partida" variant="contained" onClick={() => { history.push('/partidas') }}>Cancelar</Button>
                 </form>
             </>
         );
+}
+
+
+function AdicionaJogador(props) {
+    return( <>
+                <TextField
+                    id="jogador"
+                    label="Jogador"
+                    name="jogador"
+                    style = {{width: 100}}
+                    select
+                    InputLabelProps={{ shrink: true }}
+                    size="small">
+                    {props.jogadores.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                        {option.nome}
+                        </MenuItem>
+                    ))}
+                </TextField>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <TextField
+                    id="gols_jogador"
+                    label="Gols"
+                    name="gols_jogador"
+                    type="number"
+                    style = {{width: 35}}
+                    InputLabelProps={{ shrink: true }}
+                    size="small"
+                    
+
+                />
+                <br/><br/>
+            </>
+    );
 }
