@@ -3,6 +3,8 @@ import {useParams} from "react-router-dom";
 import {useSelector} from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles} from '@material-ui/core/styles';
+import Azul from './camisaazul.png'
+import Vermelho from './camisavermelha.png'
 
 import {selectPartidasById} from './PartidasSlice'
 import {partidaSchema} from './PartidaSchema';
@@ -10,7 +12,6 @@ import {partidaSchema} from './PartidaSchema';
 const useStyles = makeStyles((theme) => ({
     root: {
       padding: theme.spacing(3),
-      flexGrow: 1,
     },
     paper: {
       padding: theme.spacing(3),
@@ -23,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
           width: '25ch',
       },
     },
+    image: {
+        width : 50,
+        height: "auto"
+      }
   
   }));
 
@@ -39,28 +44,45 @@ function VisualizarPartida() {
     
 
     return( <>
-                <tr>
-                    <td>Data:</td>
-                    <td>{new Date(partidaOnLoad.data).toLocaleDateString()}</td>
-                </tr>
-                <br/>
-                <tr> 
-                     <td>Árbitro:</td>
-                     <td>{partidaOnLoad.arbitro}</td>
-                 </tr>
-                 <br/>
-
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        time a
-                    </Grid>
-                    <Grid item xs={4}>
-                        placar
-                    </Grid>
-                    <Grid item xs={4}>
-                        time b
-                    </Grid>
+ 
+            <Grid className={classes.root} container direction="row">
+                <Grid direction="column" item xs={12} container alignItems="center">
+                        <p>{partidaOnLoad.local} - {new Date(partidaOnLoad.data).toLocaleDateString()}</p>
+                        Árbitro: {partidaOnLoad.arbitro}
                 </Grid>
+                <Grid direction="column" item xs={4} container alignItems="center" >
+                    <img className={classes.image} alt={partidaOnLoad.time_A} src={Azul}/>
+                    <br/>
+                    {partidaOnLoad.time_A}
+                </Grid>
+                <Grid direction="column" item xs={4} container alignItems="center">
+                    <h2>{partidaOnLoad.gols_time_A} X {partidaOnLoad.gols_time_B} </h2>
+                </Grid>
+                <Grid direction="column" item xs={4} container alignItems="center">
+                    <img className={classes.image} alt={partidaOnLoad.time_B} src={Vermelho}/>
+                    <br/>
+                    {partidaOnLoad.time_B}
+                </Grid>
+            </Grid>
+            <hr/>
+            <Grid className={classes.root} container direction="row">
+                <Grid direction="column" item xs={6} container alignItems="center">
+                    Jogador A teste1
+                    <br/>
+                    Jogador A teste2
+                    <br/>
+                    Jogador A teste3
+                </Grid>
+                <Grid direction="column" item xs={6} container alignItems="center">
+                    Jogador B teste1
+                    <br/>
+                    Jogador B teste2
+                    <br/>
+                    Jogador B teste3
+                </Grid>
+
+            </Grid>
+        
             
             </>
      );
