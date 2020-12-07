@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
     image: {
-      width: 40,
+      width : 30,
       height: "auto"
     }
   }));
@@ -37,9 +37,9 @@ const LinhaPartida = (props) => {
                   <ListItemText secondary={props.partida.time_A}></ListItemText>
                 </ListItemAvatar>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <ListItemText primary={props.partida.gols_time_A}/>
+                <ListItemText  primary={props.partida.gols_time_A}/>
                 <ListItemText  primary="X"/>
-                <ListItemText primary={props.partida.gols_time_B}/>
+                <ListItemText  primary={props.partida.gols_time_B}/>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <ListItemAvatar>
                   <img className={classes.image} alt={props.partida.time_B} src={Vermelho}/>
