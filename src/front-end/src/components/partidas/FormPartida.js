@@ -94,19 +94,35 @@ export default function FormPartida(props) {
                 <h1>{(partidaOnLoad.id ?? 0) === 0 ? "Nova Partida" : "Editar Partida"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate autoComplete="off" >
-                    <TextField 
-                        id="data_partida" 
-                        label="Data" 
-                        name="data"
-                        type="date"
-                        defaultValue={partidaOnLoad.data} 
-                        inputRef={register}
-                        helperText={errors.data?.message} 
-                        error={errors.data?.message ? true: false}
-                        InputLabelProps={{ shrink: true }}
-                        required
-                        size="small"
-                    />
+                    {(partidaOnLoad.id ?? 0) === 0 ?
+                        <TextField 
+                            id="data_partida" 
+                            label="Data" 
+                            name="data"
+                            type="date"
+                            defaultValue={partidaOnLoad.data} 
+                            inputRef={register}
+                            helperText={errors.data?.message} 
+                            error={errors.data?.message ? true: false}
+                            InputLabelProps={{ shrink: true }}
+                            required
+                            size="small"
+                        />
+                    :
+                        <TextField 
+                            id="data_partida" 
+                            label="Data" 
+                            name="data"
+                            type="date"
+                            defaultValue={partidaOnLoad.data.substring(0,10)} 
+                            inputRef={register}
+                            helperText={errors.data?.message} 
+                            error={errors.data?.message ? true: false}
+                            InputLabelProps={{ shrink: true }}
+                            required
+                            size="small"
+                        />
+                    }
                     <br/>
                     <TextField
                         id="arbitro_partida"

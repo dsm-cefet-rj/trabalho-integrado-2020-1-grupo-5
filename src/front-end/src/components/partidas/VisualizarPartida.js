@@ -41,7 +41,7 @@ function VisualizarPartida() {
     return( <>
                 <tr>
                     <td>Data:</td>
-                    <td>{partidaOnLoad.data}</td>
+                    <td>{new Date(partidaOnLoad.data).toLocaleDateString()}</td>
                 </tr>
                 <br/>
                 <tr> 

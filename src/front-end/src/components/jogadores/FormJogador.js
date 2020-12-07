@@ -81,29 +81,29 @@ export default function FormJogador(props) {
                     />
                     <br/>
                     {(jogadorOnLoad.id ?? 0) === 0 ? 
-                    <TextField
-                        id="data_nascimento_jogador"
-                        type="date"
-                        label="Data de nascimento" 
-                        name="data_nascimento"
-                        defaultValue= {jogadorOnLoad.data_nascimento}
-                        inputRef={register}
-                        helperText={errors.data_nascimento?.message} 
-                        error={errors.data_nascimento?.message ? true: false} 
-                        InputLabelProps={{ shrink: true }}
-                    />
+                        <TextField
+                            id="data_nascimento_jogador"
+                            type="date"
+                            label="Data de nascimento" 
+                            name="data_nascimento"
+                            defaultValue= {jogadorOnLoad.data_nascimento}
+                            inputRef={register}
+                            helperText={errors.data_nascimento?.message} 
+                            error={errors.data_nascimento?.message ? true: false} 
+                            InputLabelProps={{ shrink: true }}
+                        />
                     :   
-                    <TextField
-                        id="data_nascimento_jogador"
-                        type="date"
-                        label="Data de nascimento" 
-                        name="data_nascimento"
-                        defaultValue= {jogadorOnLoad.data_nascimento.substring(0,10)}
-                        inputRef={register}
-                        helperText={errors.data_nascimento?.message} 
-                        error={errors.data_nascimento?.message ? true: false} 
-                        InputLabelProps={{ shrink: true }}
-                    />      
+                        <TextField
+                            id="data_nascimento_jogador"
+                            type="date"
+                            label="Data de nascimento" 
+                            name="data_nascimento"
+                            defaultValue= {jogadorOnLoad.data_nascimento.substring(0,10)}
+                            inputRef={register}
+                            helperText={errors.data_nascimento?.message} 
+                            error={errors.data_nascimento?.message ? true: false} 
+                            InputLabelProps={{ shrink: true }}
+                        />      
                     }
                     <br/><br/>
                     <Button type="submit" id="salva_jogador" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
