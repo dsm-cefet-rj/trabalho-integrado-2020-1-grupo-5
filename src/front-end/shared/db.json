@@ -33,32 +33,12 @@
     {
       "gols_time_B": 1,
       "time_B": "Vermelho",
-      "gols_time_A": 2,
+      "gols_time_A": 3,
       "time_A": "Azul",
       "local": "sdsdsd",
       "arbitro": "a",
       "data": "2020-12-07T03:00:00.000Z",
       "id": 1
-    },
-    {
-      "gols_time_B": 1,
-      "time_B": "Vermelho",
-      "gols_time_A": 2,
-      "time_A": "Azul",
-      "local": "aaa",
-      "arbitro": "a",
-      "data": "2020-12-02T03:00:00.000Z",
-      "id": 2
-    },
-    {
-      "gols_time_B": 0,
-      "time_B": "Vermelho",
-      "gols_time_A": 2,
-      "time_A": "Azul",
-      "local": "Teste",
-      "arbitro": "Teste",
-      "data": "2020-12-03T03:00:00.000Z",
-      "id": 3
     }
   ]
 }
