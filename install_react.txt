@@ -14,3 +14,7 @@ JSDoc			npm install -g jsdoc
 
 Back-End
 --------
+Inicializar projeto	npm init
+Express			npm install express --save
+Dependências		npm install
+MongoDB			https://www.mongodb.com/try/download/community		

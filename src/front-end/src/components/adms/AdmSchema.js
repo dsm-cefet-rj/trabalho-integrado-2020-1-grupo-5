@@ -10,7 +10,7 @@ const today= new Date();
 
 export let admSchema = object().shape(
     {
-        id: number(),
+        id: string(),
         nome: string().required().max(50),
         usuario: string().required().max(50),
         senha: string().required().min(8).max(50)

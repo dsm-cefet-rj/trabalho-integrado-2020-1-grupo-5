@@ -14,7 +14,7 @@ import BotaoExcluir from '../layout/AlertDialog.js'
  /**
  * @typedef Jogador
  * @type {object}
- * @property {number} id - identificador.
+ * @property {string} id - identificador.
  * @property {string} nome - nome do jogador.
   */
 

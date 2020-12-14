@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
  /**
  * @typedef Adm
  * @type {object}
- * @property {number} id - identificador.
+ * @property {string} id - identificador.
  * @property {string} nome - nome do adm.
  * @property {string} usuario - nome do usuário do adm.
  * @property {string} senha - senha do usuário do adm.
@@ -54,7 +54,6 @@ function FormAdm(props) {
     const classes = useStyles(); 
 
     let { id } = useParams();
-    id = parseInt(id);
 
     const admFound = useSelector(state => selectAdmsById(state, id))
     const { register, handleSubmit, errors } = useForm({
@@ -81,7 +80,7 @@ function FormAdm(props) {
     }    
 
     return( <>
-                <h1>{(admOnLoad.id ?? 0) === 0 ? "Novo Adm" : "Editar Adm"}</h1>
+                <h1>{admOnLoad.id === null ? "Novo Adm" : "Editar Adm"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}  noValidate autoComplete="off" >
                     <TextField 

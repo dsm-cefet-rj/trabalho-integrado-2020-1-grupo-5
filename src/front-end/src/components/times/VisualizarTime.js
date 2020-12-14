@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
  /**
  * @typedef Time
  * @type {object}
- * @property {number} id - identificador.
+ * @property {string} id - identificador.
  * @property {string} nome - nome do time.
  */
 
@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 function VisualizarTime() {
     const classes = useStyles(); 
     let { id } = useParams();
-    id = parseInt(id);
  
     const timeFound = useSelector(state => selectTimesById(state, id))
 
@@ -58,7 +57,7 @@ function VisualizarTime() {
             <div className={classes.root}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Paper className={classes.paper}><b>Nome:</b>{timeOnLoad.nome} </Paper>
+                        <Paper className={classes.paper}><b>Nome: </b>{timeOnLoad.nome} </Paper>
                     </Grid>
                 </Grid>
             </div>       

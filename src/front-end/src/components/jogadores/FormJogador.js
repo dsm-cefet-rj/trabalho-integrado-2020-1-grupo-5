@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
  /**
  * @typedef Jogador
  * @type {object}
- * @property {number} id - identificador.
+ * @property {string} id - identificador.
  * @property {string} nome - nome do jogador.
  * @property {date} data_nascimento - data de nascimento do jogador.
  */
@@ -55,7 +55,6 @@ function FormJogador() {
     const classes = useStyles(); 
 
     let { id } = useParams();
-    id = parseInt(id);
 
     const jogadorFound = useSelector(state => selectJogadoresById(state, id))
     const { register, handleSubmit, errors } = useForm({
@@ -82,7 +81,7 @@ function FormJogador() {
     }    
 
     return( <>
-                <h1>{(jogadorOnLoad.id ?? 0) === 0 ? "Novo Jogador" : "Editar Jogador"}</h1>
+                <h1>{jogadorOnLoad.id === null ? "Novo Jogador" : "Editar Jogador"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}  noValidate autoComplete="off" >
                     <TextField 

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
  /**
  * @typedef Time
  * @type {object}
- * @property {number} id - identificador.
+ * @property {string} id - identificador.
  * @property {string} nome - nome do time.
  */
 
@@ -54,7 +54,6 @@ function FormTime(props) {
     const classes = useStyles(); 
 
     let { id } = useParams();
-    id = parseInt(id);
 
     const timeFound = useSelector(state => selectTimesById(state, id))
     const { register, handleSubmit, errors } = useForm({
@@ -81,7 +80,7 @@ function FormTime(props) {
     }    
 
     return( <>
-                <h1>{(timeOnLoad.id ?? 0) === 0 ? "Novo Time" : "Editar Time"}</h1>
+                <h1>{timeOnLoad.id == null ? "Novo Time" : "Editar Time"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}  noValidate autoComplete="off" >
                     <TextField 

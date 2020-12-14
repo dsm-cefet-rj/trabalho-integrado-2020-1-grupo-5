@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
  /**
  * @typedef Jogador
  * @type {object}
- * @property {number} id - identificador.
+ * @property {string} id - identificador.
  * @property {string} nome - nome do jogador.
  * @property {date} data_nascimento - data de nascimento do jogador.
    */
@@ -47,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
  function VisualizarJogador() {
     let { id } = useParams();
-    id = parseInt(id);
  
     const jogadorFound = useSelector(state => selectJogadoresById(state, id))
 
