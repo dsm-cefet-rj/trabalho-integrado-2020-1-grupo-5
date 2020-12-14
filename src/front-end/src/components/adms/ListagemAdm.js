@@ -15,7 +15,16 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function ListagemAdm(props) {
+/**
+ * @module adms/ListagemAdms
+ */
+
+/**
+ * Renderiza a tela de Listagem de Adms.
+ * 
+ */
+
+function ListagemAdm(props) {
     const classes = useStyles();
     
     const adms = useSelector(selectAllAdms)
@@ -64,3 +73,5 @@ export default function ListagemAdm(props) {
             </>
     );
   }
+  
+  export default ListagemAdm

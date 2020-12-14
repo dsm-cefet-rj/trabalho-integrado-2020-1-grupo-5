@@ -29,7 +29,22 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export default function VisualizarTime() {
+/**
+ * @module times/VisualizarTime
+ */
+
+ /**
+ * @typedef Time
+ * @type {object}
+ * @property {number} id - identificador.
+ * @property {string} nome - nome do time.
+ */
+
+ /**
+  * Renderiza a tela com os dados do time selecionado na linha.
+ */
+
+function VisualizarTime() {
     const classes = useStyles(); 
     let { id } = useParams();
     id = parseInt(id);
@@ -50,3 +65,5 @@ export default function VisualizarTime() {
             </>
     );
 }
+
+export default VisualizarTime

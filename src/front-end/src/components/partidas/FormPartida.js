@@ -35,8 +35,29 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
-  
-export default function FormPartida(props) {
+
+/**
+ * @module partidas/FormPartida
+ */
+
+ /**
+ * @typedef Partida
+ * @type {object}
+ * @property {number} id - identificador.
+ * @property {date} data - data da partida.
+ * @property {string} arbitro - árbitro da partida.
+ * @property {string} local - local da partida.
+ * @property {string} time_A - nome do time A da partida.
+ * @property {number} gols_time_A - quantidade de gols do time A da partida.
+ * @property {number} gols_time_B - quantidade de gols do time B da partida.
+ * @property {string} time_B - nome do time B da partida.
+ */
+
+/**
+ * Renderiza a tela com os campos para inclusão de uma nova partida ou a alteração dos dados da partida selecionada na lista. 
+ */
+
+ function FormPartida() {
     
     //inicializa o estado com o hook useState
     const history  = useHistory();
@@ -293,3 +314,5 @@ function AdicionaJogador(props) {
             </>
     );
 }
+
+export default FormPartida

@@ -31,7 +31,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function FormJogador(props) {
+/**
+ * @module jogadores/FormJogador
+ */
+
+ /**
+ * @typedef Jogador
+ * @type {object}
+ * @property {number} id - identificador.
+ * @property {string} nome - nome do jogador.
+ * @property {date} data_nascimento - data de nascimento do jogador.
+ */
+
+/**
+ * Renderiza a tela com os campos para inclusão de um novo jogador ou a alteração dos dados do jogador selecionado na lista. 
+ */
+
+function FormJogador() {
     
     //inicializa o estado com o hook useState
     const history  = useHistory();
@@ -112,3 +128,5 @@ export default function FormJogador(props) {
             </>
         );
 }
+
+export default FormJogador

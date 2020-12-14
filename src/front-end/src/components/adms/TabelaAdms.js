@@ -11,7 +11,18 @@ import List from '@material-ui/core/List';
 
 import LinhaAdm from './LinhaAdm';
 
-export default function TabelaAdms(props) {
+/**
+ * @module adms/TabelaAdms
+ */
+
+/**
+ * Renderiza a tabela de adms.
+ * 
+ * @param {object} props.adms - Lista de adms para ser exibida na tabela.
+ * 
+ */
+
+function TabelaAdms(props) {
   if(props != null && props.adms != null && props.adms.length > 0){
     return(
         <Box justifyContent="flex-start">
@@ -25,3 +36,5 @@ export default function TabelaAdms(props) {
     return(<div>Não existem adms a serem exibidos.</div>)
   }
 }
+
+export default TabelaAdms

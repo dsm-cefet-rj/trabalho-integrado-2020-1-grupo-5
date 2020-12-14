@@ -24,7 +24,16 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-export default function ListagemPartida(props) {
+/**
+ * @module partidas/ListagemPartida
+ */
+
+/**
+ * Renderiza a tela de Listagem de Partidas.
+ * 
+ */
+
+function ListagemPartida(props) {
   
     const partidas = useSelector(selectAllPartidas)
     const status = useSelector(state => state.partidas.status);
@@ -82,3 +91,6 @@ export default function ListagemPartida(props) {
             </>
     );
   }
+
+
+  export default ListagemPartida

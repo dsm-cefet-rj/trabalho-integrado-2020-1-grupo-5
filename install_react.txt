@@ -1,0 +1,16 @@
+Front-End
+---------
+Nodejs 			https://nodejs.org/en/
+React			npx create-react-app <nome-da-pasta-da-aplicação>
+Yarnpm			npm install --global yarn
+Navegação		yarn add react-router-dom
+Redux			yarn add @reduxjs/toolkit
+react -> redux		yarn add react-redux
+json-server		npm install -g json-server
+start json-server	npm run json-server
+Validação form		yarn add yup react-hook-form @hookform/resolvers yup-locale-pt
+Material UI		yarn add @material-ui/core @material-ui/icons
+JSDoc			npm install -g jsdoc
+
+Back-End
+--------

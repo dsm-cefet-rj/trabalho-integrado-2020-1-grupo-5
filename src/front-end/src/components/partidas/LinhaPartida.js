@@ -21,7 +21,27 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-const LinhaPartida = (props) => {
+/**
+ * @module partidas/LinhaPartida
+ */
+
+ /**
+ * @typedef Partida
+ * @type {object}
+ * @property {date} data - data da partida.
+ * @property {string} time_A - nome do time A da partida.
+ * @property {number} gols_time_A - quantidade de gols do time A da partida.
+ * @property {number} gols_time_B - quantidade de gols do time B da partida.
+ * @property {string} time_B - nome do time B da partida.
+ */
+
+ /**
+  * Renderiza uma linha na listagem de partidas. 
+  * Cada linha conterá a data, os times A e B e as respectivas quantidades de gols de cada time, juntamente com os botões para editar e excluir.
+  * @param {Partida} props.partida - Partida a ser renderizada na linha.
+  */
+
+function LinhaPartida(props) {
   const classes = useStyles();
 
   if(props != null && props.partida != null && props.partida.id != null){

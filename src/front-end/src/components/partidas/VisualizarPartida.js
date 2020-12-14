@@ -31,6 +31,26 @@ const useStyles = makeStyles((theme) => ({
   
   }));
 
+/**
+ * @module partidas/VisualizarPartida
+ */
+
+ /**
+ * @typedef Partida
+ * @type {object}
+ * @property {date} data - data da partida.
+ * @property {string} arbitro - árbitro da partida.
+ * @property {string} local - local da partida.
+ * @property {string} time_A - nome do time A da partida.
+ * @property {number} gols_time_A - quantidade de gols do time A da partida.
+ * @property {number} gols_time_B - quantidade de gols do time B da partida.
+ * @property {string} time_B - nome do time B da partida.
+*/
+
+ /**
+  * Renderiza a tela com os dados do time selecionado na linha.
+ */
+
 function VisualizarPartida() {
     const classes = useStyles();
 

@@ -28,7 +28,25 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function FormAdm(props) {
+
+/**
+ * @module adms/FormAdm
+ */
+
+ /**
+ * @typedef Adm
+ * @type {object}
+ * @property {number} id - identificador.
+ * @property {string} nome - nome do adm.
+ * @property {string} usuario - nome do usuário do adm.
+ * @property {string} senha - senha do usuário do adm.
+ */
+
+/**
+ * Renderiza a tela com os campos para inclusão de um novo adm ou a alteração dos dados do adm selecionado na lista. 
+ */
+ 
+function FormAdm(props) {
     
     //inicializa o estado com o hook useState
     const history  = useHistory();
@@ -106,3 +124,5 @@ export default function FormAdm(props) {
             </>
         );
 }
+
+export default FormAdm

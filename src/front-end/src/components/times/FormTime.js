@@ -31,7 +31,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function FormTime(props) {
+/**
+ * @module times/FormTime
+ */
+
+ /**
+ * @typedef Time
+ * @type {object}
+ * @property {number} id - identificador.
+ * @property {string} nome - nome do time.
+ */
+
+/**
+ * Renderiza a tela com os campos para inclusão de um novo time ou a alteração dos dados do time selecionado na lista. 
+ */
+ 
+function FormTime(props) {
     
     //inicializa o estado com o hook useState
     const history  = useHistory();
@@ -86,3 +101,6 @@ export default function FormTime(props) {
             </>
         );
 }
+
+
+export default FormTime
