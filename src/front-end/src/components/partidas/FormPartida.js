@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
  /**
  * @typedef Partida
  * @type {object}
- * @property {number} id - identificador.
+ * @property {string} id - identificador.
  * @property {date} data - data da partida.
  * @property {string} arbitro - árbitro da partida.
  * @property {string} local - local da partida.
@@ -85,8 +85,7 @@ const useStyles = makeStyles((theme) => ({
   
 
     let { id } = useParams();
-    id = parseInt(id);
-
+    
     const partidaFound = useSelector(state => selectPartidasById(state, id))
     const { register, handleSubmit, errors } = useForm({
         resolver: yupResolver(partidaSchema)
@@ -112,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
     }                
 
     return( <>
-                <h1>{(partidaOnLoad.id ?? 0) === 0 ? "Nova Partida" : "Editar Partida"}</h1>
+                <h1>{partidaOnLoad.id == null ? "Nova Partida" : "Editar Partida"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate autoComplete="off" >
                     {(partidaOnLoad.id ?? 0) === 0 ?

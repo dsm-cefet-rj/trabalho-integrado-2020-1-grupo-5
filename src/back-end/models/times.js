@@ -1,4 +1,3 @@
-  
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const normalize = require('normalize-mongoose');
@@ -12,6 +11,6 @@ const timeSchema = new Schema({
 
 timeSchema.plugin(normalize);
 
-var Times = mongoose.model('Time', timeSchema);
+var Times = mongoose.model('times', timeSchema);
 
 module.exports = Times;

@@ -81,7 +81,7 @@ function FormJogador() {
     }    
 
     return( <>
-                <h1>{jogadorOnLoad.id === null ? "Novo Jogador" : "Editar Jogador"}</h1>
+                <h1>{jogadorOnLoad.id == null ? "Novo Jogador" : "Editar Jogador"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}  noValidate autoComplete="off" >
                     <TextField 

@@ -11,7 +11,7 @@ const mindate = "2018-01-01T00:00:00.000Z"
 
 export let partidaSchema = object().shape(
     {
-        id: number(),
+        id: string(),
         data: date()
             .min(mindate,({min}) => `O campo deve ser posterior a ${formatDate(mindate)}`, )
             .max(today,({max}) =>`O campo deve ser anterior a ${formatDate(today)}`,)

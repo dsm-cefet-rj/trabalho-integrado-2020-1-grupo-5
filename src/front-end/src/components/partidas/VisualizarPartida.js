@@ -55,7 +55,6 @@ function VisualizarPartida() {
     const classes = useStyles();
 
     let { id } = useParams();
-    id = parseInt(id);
 
     const partidaFound = useSelector(state => selectPartidasById(state, id))
 

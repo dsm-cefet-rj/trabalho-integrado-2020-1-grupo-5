@@ -5,6 +5,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var timesRouter = require('./routes/times');
+var admsRouter = require('./routes/adms');
+var jogadoresRouter = require('./routes/jogadores');
+var partidasRouter = require('./routes/partidas');
 
 const mongoose = require('mongoose');
 
@@ -25,5 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/times', timesRouter);
+app.use('/adms', admsRouter);
+app.use('/jogadores', jogadoresRouter);
+app.use('/partidas', partidasRouter);
 
 module.exports = app;

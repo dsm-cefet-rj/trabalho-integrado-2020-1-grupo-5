@@ -80,7 +80,7 @@ function FormAdm(props) {
     }    
 
     return( <>
-                <h1>{admOnLoad.id === null ? "Novo Adm" : "Editar Adm"}</h1>
+                <h1>{admOnLoad.id == null ? "Novo Adm" : "Editar Adm"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}  noValidate autoComplete="off" >
                     <TextField 
