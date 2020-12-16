@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
  * 
  */
 
-function ListagemPartida(props) {
+function ListagemPartida() {
   
     const partidas = useSelector(selectAllPartidas)
     const status = useSelector(state => state.partidas.status);

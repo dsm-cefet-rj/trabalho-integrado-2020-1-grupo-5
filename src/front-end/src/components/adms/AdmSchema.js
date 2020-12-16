@@ -1,12 +1,6 @@
-import {string, object, number, setLocale, date} from 'yup';
+import {string, object, setLocale} from 'yup';
 import { ptForm } from 'yup-locale-pt';
 setLocale(ptForm)
-
-function formatDate(date) {
-    return new Date(date).toLocaleDateString()
-  }
-
-const today= new Date();
 
 export let admSchema = object().shape(
     {
