@@ -2,18 +2,12 @@ import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 import {deleteAdmServer, fetchAdms, selectAllAdms} from './AdmsSlice'
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import TabelaAdms from './TabelaAdms'
-
-const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-  }));
 
 /**
  * @module adms/ListagemAdms
@@ -24,9 +18,7 @@ const useStyles = makeStyles((theme) => ({
  * 
  */
 
-function ListagemAdm(props) {
-    const classes = useStyles();
-    
+function ListagemAdm() {
     const adms = useSelector(selectAllAdms)
     const status = useSelector(state => state.adms.status);
     const error = useSelector(state => state.adms.error);

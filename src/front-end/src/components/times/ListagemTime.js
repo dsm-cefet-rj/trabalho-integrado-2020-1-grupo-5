@@ -18,7 +18,7 @@ import TabelaTimes from './TabelaTimes'
  * 
  */
 
-function ListagemTime(props) {
+function ListagemTime() {
     const times = useSelector(selectAllTimes)
     const status = useSelector(state => state.times.status);
     const error = useSelector(state => state.times.error);

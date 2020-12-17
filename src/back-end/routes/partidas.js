@@ -40,7 +40,7 @@ router.route('/:id')
   let err;
   res.setHeader('Content-Type', 'application/json');
   try{
-    const resp = await Partidas.findById(req.params.id);
+    const resp = await Partidas.findById(req.params.id).populate('time_A').populate('time_B');
     if(resp != null){
       res.statusCode = 200;
       res.json(resp);
