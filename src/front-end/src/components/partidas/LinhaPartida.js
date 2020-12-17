@@ -5,8 +5,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
-import Azul from './camisaazul.png'
-import Vermelho from './camisavermelha.png'
 import Grid from '@material-ui/core/Grid';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
@@ -54,16 +52,13 @@ function LinhaPartida(props) {
                     <ListItemText secondary={new Date(props.partida.data).toLocaleDateString()}/>            
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center" >
-                  <img className={classes.image} alt={props.partida.time_A} src={Azul}/>
-                  <br/>
                   <ListItemText secondary={props.partida.time_A}/>
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center">
-                  <h3>{props.partida.gols_time_A} X {props.partida.gols_time_B}</h3>
+                  <ListItemText>{props.partida.gols_time_A} X {props.partida.gols_time_B}</ListItemText>
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center">
-                  <img className={classes.image} alt={props.partida.time_B} src={Vermelho}/>
-                  <br/>
+                  
                   <ListItemText secondary={props.partida.time_B}/>
               </Grid>
             </Grid>        

@@ -109,7 +109,6 @@ function FormAdm(props) {
                         id="senha_adm" 
                         label="Senha" 
                         name="senha" 
-                        type="password"
                         defaultValue={admOnLoad.senha} 
                         inputRef={register}
                         helperText={errors.senha?.message} 

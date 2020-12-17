@@ -68,7 +68,7 @@ function ListagemPartida(props) {
               <Box display="flex" justifyContent="flex-start" >
                 <Box>
                   <div id="lbl_titulo_pagina"><h1>Partidas</h1></div>
-                  <div className={classes.root}>
+                  {/*<div className={classes.root}>
                     <Grid container spacing={1} alignItems="flex-end">
                       <Grid item>
                         <SearchIcon />
@@ -76,8 +76,8 @@ function ListagemPartida(props) {
                       <Grid item>
                         <TextField type="date" id="procura_data_partida" label="Data" InputLabelProps={{ shrink: true }}/>
                       </Grid>
-                    </Grid>
-                  </div>
+                      </Grid>
+                    </div>*/}
                 </Box>
               </Box>
   
