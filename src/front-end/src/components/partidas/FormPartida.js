@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
         resolver: yupResolver(partidaSchema)
     });
 
-    const [partidaOnLoad] = useState(
+    const [partidaOnLoad, setPartida] = useState(
         id ? partidaFound ?? partidaSchema.cast({}): partidaSchema.cast({}));
 
     const [actionType, ] = useState(
@@ -92,6 +92,11 @@ const useStyles = makeStyles((theme) => ({
                 ? 'partidas/updatePartida'
                 : 'partidas/addPartida'
             : 'partidas/addPartida');
+
+    const handleChange = (event) => {
+        alert(event.target.value)
+        setPartida(event.target.value);
+    };
 
     
     useEffect(() => {
@@ -181,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
                                     label="Time A" 
                                     name="id_time_A"
                                     size="small"
-                                    defaultValue={partidaOnLoad.id_time_A} 
+                                    value={partidaOnLoad.id_time_A}
                                     inputRef={register}
                                     helperText={errors.id_time_A?.message} 
                                     error={errors.id_time_A?.message ? true: false} 
@@ -189,10 +194,10 @@ const useStyles = makeStyles((theme) => ({
                                     style = {{width: 100}}
                                     required
                                     select
-                                    onChange={(e) => this.setState({id_time_A: e.target.value})}>
+                                    onChange={handleChange}>
                                     {times.map((option) => (
                                         <MenuItem key={option.id} value={option.id}>
-                                        {option.nome}
+                                            {option.nome}
                                         </MenuItem>
                                     ))}
                                 </TextField>
@@ -249,7 +254,7 @@ const useStyles = makeStyles((theme) => ({
                                     label="Time B" 
                                     name="id_time_B"
                                     size="small"
-                                    defaultValue={partidaOnLoad.id_time_B} 
+                                    value={partidaOnLoad.id_time_B}
                                     inputRef={register}
                                     helperText={errors.id_time_B?.message} 
                                     error={errors.id_time_B?.message ? true: false} 
@@ -257,10 +262,10 @@ const useStyles = makeStyles((theme) => ({
                                     style = {{width: 100}}
                                     required
                                     select
-                                    onChange={(e) => this.setState({id_time_A: e.target.value})}>
+                                    onChange={handleChange}>
                                     {times.map((option) => (
                                         <MenuItem key={option.id} value={option.id}>
-                                        {option.nome}
+                                            {option.nome}
                                         </MenuItem>
                                     ))}
                                 </TextField>
