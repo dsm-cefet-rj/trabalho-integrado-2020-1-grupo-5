@@ -35,10 +35,10 @@ export default function BotaoExcluir(props) {
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <IconButton id="cancelar_item" onClick={handleClose}>
+                <IconButton onClick={handleClose}>
                     Cancelar
                 </IconButton>
-                <IconButton id="excluir_item" onClick={() => {props.funcao(props.chave)}} color="secondary" autoFocus>
+                <IconButton onClick={() => {props.funcao(props.chave)}} color="secondary" autoFocus>
                     Excluir
                 </IconButton>
                 </DialogActions>
