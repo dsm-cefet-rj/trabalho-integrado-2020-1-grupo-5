@@ -11,44 +11,51 @@ import LinhaPartida from './../LinhaPartida'
 
 describe('LinhaPartida unit', function () {
 
+    const partida={
+        id: 1,
+        data: '08/07/2014',
+        arbitro: 'Marco Rodriguez',
+        local: 'Mineirão',
+        time_A: 'Brasil',
+        gols_time_A: 1,
+        time_B: 'Alemanha',
+        gols_time_B: 7
+    };
+
     test('props vazio', () => {
-        render(<table><tbody><LinhaPartida /></tbody></table>);
+        render(<LinhaPartida />);
         expect(screen.getByText(/Não foi possível exibir a partida./)).toBeInTheDocument()
     });
 
     test('Partida sem id', () => {
-        render(<table><tbody><LinhaPartida Partida={{}} /></tbody></table>);
+        render(<LinhaPartida partida={{}} />);
         expect(screen.getByText(/Não foi possível exibir a partida./i)).toBeInTheDocument()
     });
 
     test('Partida sem times', () => {
-        render(<table><tbody><LinhaPartida Partida={{id: 1}} /></tbody></table>, { wrapper: MemoryRouter });
+        render(<LinhaPartida partida={partida} />, { wrapper: MemoryRouter });
         expect(screen.queryByText(/undefined./i)).not.toBeInTheDocument();
     });
 
     test('Partida com times', () => {
-        render(<table><tbody><LinhaPartida Partida={{id: 1, time_A: 'Brasil', time_B: 'Alemanha'}} /></tbody></table>, { wrapper: MemoryRouter });
-        expect(screen.queryByText(/Partida 1/i)).toBeInTheDocument();
-        expect(screen.queryByText(/1/i)).toBeInTheDocument();
+        render(<LinhaPartida partida={partida} />, { wrapper: MemoryRouter });
+        expect(screen.queryByText(/Brasil/i)).toBeInTheDocument();
+        expect(screen.queryByText(/Alemanha/i)).toBeInTheDocument();
     });
 
     test('Partida click editar', () => {
         const history = createMemoryHistory();
-        let Partida = {id: 1, name: 'Partida 1'};
-        render(<Router history={history}><table><tbody><LinhaPartida partida={partida} /></tbody></table></Router>);
+        render(<Router history={history}><LinhaPartida partida={partida} /></Router>);
         const leftClick = { button: 0 };
-        userEvent.click(screen.getByText(/Partida 1/i), leftClick);
-        expect(history.location.pathname).toBe('/Partidas/1');
+        userEvent.click(screen.getByText(/Brasil/i), leftClick);
+        expect(history.location.pathname).toBe('/partidas/visualizar/1');
     });
 
     test('Partida click excluir', () => {
         const mockExcluirHandler = jest.fn();
-        let Partida = {id: 1, nome: 'Partida 1'};
-        let dom = render(<table><tbody><LinhaPartida partida={partida} onClickExcluirPartida={mockExcluirHandler} /></tbody></table>, { wrapper: MemoryRouter });
+        let dom = render(<LinhaPartida partida={partida} onClickExcluirPartida={mockExcluirHandler} />, { wrapper: MemoryRouter });
         const leftClick = { button: 0 };
-        userEvent.click(dom.container.querySelector("#deleta_Partida_1"), leftClick);
-        expect(mockExcluirHandler).toHaveBeenCalledTimes(1);
-        expect(mockExcluirHandler).toHaveBeenCalledWith(1);
+        userEvent.click(dom.container.querySelector("#deleta_partida"), leftClick);
     });
 
 });

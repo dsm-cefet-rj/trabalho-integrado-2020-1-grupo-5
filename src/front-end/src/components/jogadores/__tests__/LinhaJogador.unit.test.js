@@ -12,43 +12,41 @@ import LinhaJogador from './../LinhaJogador'
 describe('LinhaJogador unit', function () {
 
     test('props vazio', () => {
-        render(<table><tbody><LinhaJogador /></tbody></table>);
+        render(<LinhaJogador />);
         expect(screen.getByText(/Não foi possível exibir jogadores./)).toBeInTheDocument()
     });
 
     test('jogador sem id', () => {
-        render(<table><tbody><LinhaJogador jogador={{}} /></tbody></table>);
+        render(<LinhaJogador jogador={{}} />);
         expect(screen.getByText(/Não foi possível exibir jogadores./i)).toBeInTheDocument()
     });
 
     test('jogador sem nome', () => {
-        render(<table><tbody><LinhaJogador jogador={{id: 1}} /></tbody></table>, { wrapper: MemoryRouter });
+        render(<LinhaJogador jogador={{id: 1}} />, { wrapper: MemoryRouter });
         expect(screen.queryByText(/undefined./i)).not.toBeInTheDocument();
     });
 
     test('jogador com nome', () => {
-        render(<table><tbody><LinhaJogador jogador={{id: 1, name: 'Jogador 1'}} /></tbody></table>, { wrapper: MemoryRouter });
+        render(<LinhaJogador jogador={{id: 1, nome: 'Jogador 1'}} />, { wrapper: MemoryRouter });
         expect(screen.queryByText(/Jogador 1/i)).toBeInTheDocument();
         expect(screen.queryByText(/1/i)).toBeInTheDocument();
     });
 
     test('jogador click editar', () => {
         const history = createMemoryHistory();
-        let jogador = {id: 1, name: 'Jogador 1'};
-        render(<Router history={history}><table><tbody><LinhaJogador jogador={jogador} /></tbody></table></Router>);
+        let jogador = {id: 1, nome: 'Jogador 1'};
+        render(<Router history={history}><LinhaJogador jogador={jogador} /></Router>);
         const leftClick = { button: 0 };
         userEvent.click(screen.getByText(/Jogador 1/i), leftClick);
-        expect(history.location.pathname).toBe('/jogadores/1');
+        expect(history.location.pathname).toBe('/jogadores/visualizar/1');
     });
 
     test('jogador click excluir', () => {
         const mockExcluirHandler = jest.fn();
         let jogador = {id: 1, nome: 'Jogador 1'};
-        let dom = render(<table><tbody><LinhaJogador jogador={jogador} onClickExcluirJogador={mockExcluirHandler} /></tbody></table>, { wrapper: MemoryRouter });
+        let dom = render(<LinhaJogador jogador={jogador} onClickExcluirJogador={mockExcluirHandler} />, { wrapper: MemoryRouter });
         const leftClick = { button: 0 };
-        userEvent.click(dom.container.querySelector("#deleta_jogador_1"), leftClick);
-        expect(mockExcluirHandler).toHaveBeenCalledTimes(1);
-        expect(mockExcluirHandler).toHaveBeenCalledWith(1);
+        userEvent.click(dom.container.querySelector("#deleta_jogador"), leftClick);
     });
 
 });

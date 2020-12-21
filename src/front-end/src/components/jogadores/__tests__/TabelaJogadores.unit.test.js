@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import TabelaJogadores from './../TabelaJogadores'
-import LinhaJogadores from './../LinhaJogador'
+import LinhaJogador from './../LinhaJogador'
 
 //Erro ao mockar ListItems
-//jest.mock('./../LinhaJogador', () => jest.fn(() => ( <ListItem>MockedLine </ListItem>)));
+jest.mock('./../LinhaJogador', () => jest.fn(() => (<ul><li>MokedLine</li><li>MokedLine</li></ul>)));
 
 describe('TabelaJogadores Unit', function () {
 
@@ -25,21 +25,21 @@ describe('TabelaJogadores Unit', function () {
     });
 
     test('um jogador na tabela', () => {
-        render(<TabelaJogadores jogadores={[{id:1, name: 'Jogador 1'}]}  />, { wrapper: MemoryRouter });
-        expect(screen.getByText(/MockedLine/i)).toBeInTheDocument();
-        expect(LinhaJogadores).toHaveBeenCalledTimes(1);
+        const jogadores = [{id:1, nome: 'Jogador 1'}];
+        render(<TabelaJogadores jogadores={jogadores}/>, { wrapper: MemoryRouter });
+        expect(LinhaJogador).toHaveBeenCalledTimes(1);
     });
 
     test('dois jogadores na tabela', () => {
-        const jogadores = [{id:1, name: 'Jogador 1'}, {id:2, name: 'Jogador 2'}];
-        render(<TabelaJogadores jogadores={jogadores}  />, { wrapper: MemoryRouter });
+        const jogadores = [{id:1, nome: 'Jogador 1'}, {id:2, nome: 'Jogador 2'}];
+        render(<TabelaJogadores jogadores={jogadores, 2}  />, { wrapper: MemoryRouter });
         expect(LinhaJogador).toHaveBeenCalledTimes(2);
     });
     
     test('N jogadores na tabela', () => {
         const jogadores = []
         for(let i = 0; i < 10; i++){
-            jogadores.push({id:i, name: 'Jogador ' + i})
+            jogadores.push({id:i, nome: 'Jogador ' + i})
         }
         render(<TabelaJogadores jogadores={jogadores}  />, { wrapper: MemoryRouter });
         expect(LinhaJogador).toHaveBeenCalledTimes(10);
