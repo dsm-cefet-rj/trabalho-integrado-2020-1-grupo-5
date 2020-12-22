@@ -5,7 +5,8 @@ import { MemoryRouter } from 'react-router-dom'
 import TabelaJogadores from './../TabelaJogadores'
 import LinhaJogador from './../LinhaJogador'
 
-//Erro ao mockar ListItems
+// Erro ao mockar ListItems
+// Insight: ListItems cria elementos HTML não-ordenados
 jest.mock('./../LinhaJogador', () => jest.fn(() => (<ul><li>MokedLine</li><li>MokedLine</li></ul>)));
 
 describe('TabelaJogadores Unit', function () {
@@ -24,6 +25,8 @@ describe('TabelaJogadores Unit', function () {
         expect(screen.getByText(/Não existem jogadores a serem exibidos./i)).toBeInTheDocument() 
     });
 
+    // Erro ao chamar função LinhaJogador por meio da TabelaJogadores
+    // Insight: Entender melhor como funciona a função e mockar parte dela
     test('um jogador na tabela', () => {
         const jogadores = [{id:1, nome: 'Jogador 1'}];
         render(<TabelaJogadores jogadores={jogadores}/>, { wrapper: MemoryRouter });
