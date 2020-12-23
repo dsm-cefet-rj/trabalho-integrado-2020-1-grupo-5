@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
  function FormPartida() {
     let { id } = useParams();
-    
+
     //inicializa o estado com o hook useState
     const history  = useHistory();
     const dispatch = useDispatch();
@@ -78,39 +78,48 @@ const useStyles = makeStyles((theme) => ({
         setJogadoresTimeB(jogadoresTimeB => [...jogadoresTimeB, <AdicionaJogador jogadores={jogadores} />]);
       };
 
-    const partidaFound = useSelector(state => selectPartidasById(state, id))
 
-    const { register, handleSubmit, errors } = useForm({
-        resolver: yupResolver(partidaSchema)
+    const { register, handleSubmit, errors, } = useForm({
+        resolver: yupResolver(partidaSchema),
     });
 
-    const [partidaOnLoad, setPartida] = useState(
+    const partidaFound = useSelector(state => selectPartidasById(state, id))
+
+    const [partidaOnLoad, ] = useState(
         id ? partidaFound ?? partidaSchema.cast({}): partidaSchema.cast({}));
+
 
     const [actionType, ] = useState(
         id  ? partidaFound
                 ? 'partidas/updatePartida'
                 : 'partidas/addPartida'
             : 'partidas/addPartida');
-
-    const handleChange = (event) => {
-        alert(event.target.value)
-        setPartida(event.target.value);
-    };
-
-    
+   
     useEffect(() => {
         dispatch(fetchJogadores(jogadores))
         dispatch(fetchTimes(times))
     }, [] )
-    
+
+   
+    const [time_A, setTimeA ] = useState("");
+
+    const handleChange_time_A = event => {
+        setTimeA(event.target.value);
+    };
+
+    const [time_B, setTimeB ] = useState("");
+
+    const handleChange_time_B = event => {
+        setTimeB(event.target.value);
+    };
+
+
     function onSubmit(partida){
         if(actionType === 'partidas/addPartida'){
             dispatch(addPartidaServer(partida));
         }else{
             dispatch(updatePartidaServer({...partida, id: partidaFound.id}));
         }
-        
         history.push('/partidas');
     }                
 
@@ -178,29 +187,30 @@ const useStyles = makeStyles((theme) => ({
                     />
                     <br/>                    
                     
-                    <Grid container direction="row">
-                        <Grid container direction="column" item xs={6} >
-                            <Grid direction="row" justify="space-between">
-                                <TextField
-                                    id="id_time_A"
-                                    label="Time A" 
-                                    name="id_time_A"
-                                    size="small"
-                                    value={partidaOnLoad.id_time_A}
-                                    inputRef={register}
-                                    helperText={errors.id_time_A?.message} 
-                                    error={errors.id_time_A?.message ? true: false} 
-                                    InputLabelProps={{ shrink: true }}
-                                    style = {{width: 100}}
-                                    required
-                                    select
-                                    onChange={handleChange}>
-                                    {times.map((option) => (
-                                        <MenuItem key={option.id} value={option.id}>
-                                            {option.nome}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
+                    <Grid container>
+                        <Grid container item xs={6} >
+                            <Grid> 
+                            <TextField
+                                select
+                                onChange={handleChange_time_A}
+                                id="id_time_A"
+                                label="Time A" 
+                                name="id_time_A"
+                                size="small"
+                                value={time_A}
+                                inputRef={register}
+                                helperText={errors.id_time_A?.message} 
+                                error={errors.id_time_A?.message ? true: false} 
+                                InputLabelProps={{ shrink: true }}
+                                style = {{width: 100}}
+                                required
+                            >
+                                {times.map((option) => (
+                                    <MenuItem key={option.nome} value={option.nome}>
+                                        {option.nome}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                                 &nbsp;&nbsp;&nbsp;
                                 <TextField
                                     id="gols_time_A"
@@ -210,19 +220,24 @@ const useStyles = makeStyles((theme) => ({
                                     size="small"
                                     defaultValue={partidaOnLoad.gols_time_A} 
                                     inputRef={register}
+                                    InputProps={{
+                                        inputProps: { 
+                                            max: 99, min: 0
+                                        }
+                                    }}
                                     helperText={errors.gols_time_A?.message} 
                                     error={errors.gols_time_A?.message ? true: false} 
                                     InputLabelProps={{ shrink: true }}
-                                    style = {{width: 35}}
+                                    style = {{width: 45}}
                                     required
                                 />
                             </Grid>
                             <br/><br/>
-                            <Grid container direction="row" justify="flex-start">
+                            <Grid container>
                                 {jogadoresTimeA.map((item, i) => (<Grid key={i}>{item}</Grid>))}
                             </Grid>
 
-                            <Grid container direction="row" justify="flex-start">
+                            <Grid>
                                 <IconButton 
                                     id="adiciona_jogador_A" 
                                     name="adiciona_jogador_A"
@@ -232,8 +247,8 @@ const useStyles = makeStyles((theme) => ({
                             </Grid>
                         </Grid>
 
-                        <Grid container direction="column" item xs={6}>
-                            <Grid direction="row" justify="space-between">
+                        <Grid container item xs={6}>
+                            <Grid >
                                 <TextField
                                     id="gols_time_B"
                                     label="Gols" 
@@ -242,40 +257,46 @@ const useStyles = makeStyles((theme) => ({
                                     size="small"
                                     defaultValue={partidaOnLoad.gols_time_B} 
                                     inputRef={register}
+                                    InputProps={{
+                                        inputProps: { 
+                                            max: 99, min: 0
+                                        }
+                                    }}
                                     helperText={errors.gols_time_B?.message} 
                                     error={errors.gols_time_B?.message ? true: false} 
                                     InputLabelProps={{ shrink: true }}
-                                    style = {{width: 35}}
-                                    required
+                                    style = {{width: 45}}
                                 />
                                  &nbsp;&nbsp;&nbsp;
                                  <TextField
+                                    select
+                                    onChange={handleChange_time_B}
                                     id="id_time_B"
                                     label="Time B" 
                                     name="id_time_B"
                                     size="small"
-                                    value={partidaOnLoad.id_time_B}
+                                    defaultValue={partidaOnLoad.id_time_B}
+                                    value={time_B}
                                     inputRef={register}
                                     helperText={errors.id_time_B?.message} 
                                     error={errors.id_time_B?.message ? true: false} 
                                     InputLabelProps={{ shrink: true }}
                                     style = {{width: 100}}
                                     required
-                                    select
-                                    onChange={handleChange}>
+                                >
                                     {times.map((option) => (
-                                        <MenuItem key={option.id} value={option.id}>
+                                        <MenuItem key={option.nome} value={option.nome}>
                                             {option.nome}
                                         </MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <br/><br/>
-                            <Grid container direction="row" justify="flex-start">
+                            <Grid container>
                                 {jogadoresTimeB.map((item, i) => (<Grid key={i}>{item}</Grid>))}
                             </Grid>
                             
-                            <Grid container direction="row" justify="flex-start">
+                            <Grid container>
                                 <IconButton 
                                     id="adiciona_jogador_B" 
                                     name="adiciona_jogador_B"

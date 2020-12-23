@@ -15,6 +15,7 @@ export let jogadorSchema = object().shape(
         data_nascimento: date()
             .min(mindate,({min}) => `O campo deve ser posterior a ${formatDate(mindate)}`, )
             .max(today,({max}) =>`O campo deve ser anterior ao dia de hoje!`,)
+            .typeError('O campo é obrigatório.')
             .required(),
         nome: string().required().max(50)
     }
