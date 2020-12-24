@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import {yupResolver} from '@hookform/resolvers/yup';
-import {useForm} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import Button from '@material-ui/core/Button';
 import { makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -10,6 +10,10 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import {addPartidaServer, updatePartidaServer, selectPartidasById} from './PartidasSlice'
 import {partidaSchema} from './PartidaSchema';
@@ -79,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
       };
 
 
-    const { register, handleSubmit, errors, } = useForm({
+    const { register, handleSubmit, errors, control } = useForm({
         resolver: yupResolver(partidaSchema),
     });
 
@@ -101,19 +105,6 @@ const useStyles = makeStyles((theme) => ({
     }, [] )
 
    
-    const [time_A, setTimeA ] = useState("");
-
-    const handleChange_time_A = event => {
-        setTimeA(event.target.value);
-    };
-
-    const [time_B, setTimeB ] = useState("");
-
-    const handleChange_time_B = event => {
-        setTimeB(event.target.value);
-    };
-
-
     function onSubmit(partida){
         if(actionType === 'partidas/addPartida'){
             dispatch(addPartidaServer(partida));
@@ -127,36 +118,19 @@ const useStyles = makeStyles((theme) => ({
                 <h1>{partidaOnLoad.id == null ? "Nova Partida" : "Editar Partida"}</h1>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate autoComplete="off" >
-                    {partidaOnLoad.id == null 
-                    ?
-                        <TextField 
-                            id="data_partida" 
-                            label="Data" 
-                            name="data"
-                            type="date"
-                            defaultValue={partidaOnLoad.data} 
-                            inputRef={register}
-                            helperText={errors.data?.message} 
-                            error={errors.data?.message ? true: false}
-                            InputLabelProps={{ shrink: true }}
-                            required
-                            size="small"
-                        />
-                    :
-                        <TextField 
-                            id="data_partida" 
-                            label="Data" 
-                            name="data"
-                            type="date"
-                            defaultValue={partidaOnLoad.data.substring(0,10)} 
-                            inputRef={register}
-                            helperText={errors.data?.message} 
-                            error={errors.data?.message ? true: false}
-                            InputLabelProps={{ shrink: true }}
-                            required
-                            size="small"
-                        />
-                    }
+                    <TextField 
+                        id="data_partida" 
+                        label="Data" 
+                        name="data"
+                        type="date"
+                        defaultValue={partidaOnLoad.id == null ? partidaOnLoad.data : partidaOnLoad.data.substring(0,10)} 
+                        inputRef={register}
+                        helperText={errors.data?.message} 
+                        error={errors.data?.message ? true: false}
+                        InputLabelProps={{ shrink: true }}
+                        required
+                        size="small"
+                    />
                     <br/>
                     <TextField
                         id="arbitro_partida"
@@ -190,27 +164,30 @@ const useStyles = makeStyles((theme) => ({
                     <Grid container>
                         <Grid container item xs={6} >
                             <Grid> 
-                            <TextField
-                                select
-                                onChange={handleChange_time_A}
-                                id="id_time_A"
-                                label="Time A" 
-                                name="id_time_A"
-                                size="small"
-                                value={time_A}
-                                inputRef={register}
-                                helperText={errors.id_time_A?.message} 
-                                error={errors.id_time_A?.message ? true: false} 
-                                InputLabelProps={{ shrink: true }}
-                                style = {{width: 100}}
-                                required
-                            >
-                                {times.map((option) => (
-                                    <MenuItem key={option.nome} value={option.nome}>
-                                        {option.nome}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
+                                <FormControl 
+                                        className={classes.formControl}
+                                        error={Boolean(errors.id_time_A)}>
+                                    <InputLabel id="demo-simple-select-label">Time A</InputLabel>
+                                    <Controller
+                                    as={
+                                        <Select  >
+                                            {times.map((option) => (
+                                                <MenuItem key={option.id} value={option.id}>
+                                                    {option.nome}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    }
+                                    style = {{width: 100}}
+                                    name="id_time_A" 
+                                    control={control}
+                                    defaultValue={partidaOnLoad.id_time_A}
+                                    />
+                                    <FormHelperText>
+                                    {errors.id_time_A?.message}
+                                    </FormHelperText>
+                                </FormControl>
+
                                 &nbsp;&nbsp;&nbsp;
                                 <TextField
                                     id="gols_time_A"
@@ -268,28 +245,29 @@ const useStyles = makeStyles((theme) => ({
                                     style = {{width: 45}}
                                 />
                                  &nbsp;&nbsp;&nbsp;
-                                 <TextField
-                                    select
-                                    onChange={handleChange_time_B}
-                                    id="id_time_B"
-                                    label="Time B" 
-                                    name="id_time_B"
-                                    size="small"
-                                    defaultValue={partidaOnLoad.id_time_B}
-                                    value={time_B}
-                                    inputRef={register}
-                                    helperText={errors.id_time_B?.message} 
-                                    error={errors.id_time_B?.message ? true: false} 
-                                    InputLabelProps={{ shrink: true }}
+                                 <FormControl 
+                                        className={classes.formControl}
+                                        error={Boolean(errors.id_time_B)}>
+                                    <InputLabel id="demo-simple-select-label">Time B</InputLabel>
+                                    <Controller
+                                    as={
+                                        <Select  >
+                                            {times.map((option) => (
+                                                <MenuItem key={option.id} value={option.id}>
+                                                    {option.nome}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    }
                                     style = {{width: 100}}
-                                    required
-                                >
-                                    {times.map((option) => (
-                                        <MenuItem key={option.nome} value={option.nome}>
-                                            {option.nome}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
+                                    name="id_time_B" 
+                                    control={control}
+                                    defaultValue={partidaOnLoad.id_time_B}
+                                    />
+                                    <FormHelperText>
+                                    {errors.id_time_B?.message}
+                                    </FormHelperText>
+                                </FormControl>
                             </Grid>
                             <br/><br/>
                             <Grid container>
