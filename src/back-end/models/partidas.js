@@ -36,12 +36,15 @@ const partidaSchema = new Schema({
         required: true,
         min: 0,
         max: 99
-    }
-    /*,
-    jogadores: [{
-        type: mongoose.ObjectId,
-        ref: 'partida_jogador'
-      }]*/
+    },
+    jogador_time_A: [{
+        type: String,
+        required: true
+    }],
+    jogador_time_B: [{
+        type: String,
+        required: true
+    }],
 });
 
 partidaSchema.plugin(normalize);

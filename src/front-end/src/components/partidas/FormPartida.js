@@ -12,7 +12,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
@@ -22,17 +21,6 @@ import {partidaSchema} from './PartidaSchema';
 import {selectAllJogadores, fetchJogadores} from '../jogadores/JogadoresSlice'
 import {selectAllTimes, fetchTimes} from '../times/TimesSlice'
 
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,8 +46,6 @@ const useStyles = makeStyles((theme) => ({
       },
       formControl: {
         margin: theme.spacing(2),
-        //minWidth: 120,
-        //maxWidth: 300,
       },
   }));
 
@@ -77,9 +63,10 @@ const useStyles = makeStyles((theme) => ({
  * @property {string} local - local da partida.
  * @property {string} time_A - nome do time A da partida.
  * @property {number} gols_time_A - quantidade de gols do time A da partida.
- * @property {number} gols_time_B - quantidade de gols do time B da partida.
  * @property {string} time_B - nome do time B da partida.
- */
+ * @property {number} gols_time_B - quantidade de gols do time B da partida.
+ * @property {string[]} jogador_time_A - jogadores do time A da partida.
+ * @property {string[]} jogador_time_B - jogadores do time B da partida.
 
 /**
  * Renderiza a tela com os campos para inclusão de uma nova partida ou a alteração dos dados da partida selecionada na lista. 
@@ -93,20 +80,8 @@ const useStyles = makeStyles((theme) => ({
     const dispatch = useDispatch();
     const classes  = useStyles(); 
     
-    const [jogadoresTimeA, setJogadoresTimeA] = useState([]);
-    const [jogadoresTimeB, setJogadoresTimeB] = useState([]);
-
     const jogadores = useSelector(selectAllJogadores);
     const times     = useSelector(selectAllTimes);
-
-    const addJogadorTimeA = (event) => {
-        setJogadoresTimeA(event.target.value);
-    };
-  
-    const addJogadorTimeB = (event) => {
-        setJogadoresTimeB(event.target.value);
-    };
-
 
     const { register, handleSubmit, errors, control } = useForm({
         resolver: yupResolver(partidaSchema),
@@ -127,7 +102,8 @@ const useStyles = makeStyles((theme) => ({
     useEffect(() => {
         dispatch(fetchJogadores(jogadores))
         dispatch(fetchTimes(times))
-    }, [] )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
    
     function onSubmit(partida){
@@ -230,7 +206,7 @@ const useStyles = makeStyles((theme) => ({
                                     }}
                                     helperText={errors.gols_time_A?.message} 
                                     error={errors.gols_time_A?.message ? true: false} 
-                                    InputLabelProps={{ shrink: true }}
+                                    //InputLabelProps={{ shrink: true }}
                                     style = {{width: 45}}
                                 />
                             </Grid>
@@ -247,10 +223,9 @@ const useStyles = makeStyles((theme) => ({
                                         name="jogador_time_A"
                                         defaultValue={partidaOnLoad.id == null ? [] : partidaOnLoad.jogador_time_A}
                                         render={({ onChange, value }) => {
-                                            console.log(value);
                                             return (
                                                 <TextField
-                                                    classes={classes.formControl}
+                                                    //classes={classes.formControl}
                                                     select
                                                     label="Jogadores A"
                                                     style = {{width: 150}}
@@ -297,7 +272,7 @@ const useStyles = makeStyles((theme) => ({
                                         </Select>
                                     }
                                     style = {{width: 100}}
-                                    InputLabelProps={{ shrink: true }}
+                                    //InputLabelProps={{ shrink: true }}
                                     name="time_B" 
                                     control={control}
                                     defaultValue={partidaOnLoad.id == null ? '' : partidaOnLoad.time_B}
@@ -340,10 +315,9 @@ const useStyles = makeStyles((theme) => ({
                                             name="jogador_time_B"
                                             defaultValue={partidaOnLoad.id == null ? [] : partidaOnLoad.jogador_time_B}
                                             render={({ onChange, value }) => {
-                                                console.log(value);
                                                 return (
                                                     <TextField
-                                                        classes={classes.formControl}
+                                                        //classes={classes.formControl}
                                                         select
                                                         label="Jogadores B"
                                                         style = {{width: 150}}
