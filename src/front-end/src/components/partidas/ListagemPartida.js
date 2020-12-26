@@ -5,24 +5,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import TextField from '@material-ui/core/TextField';
-import SearchIcon from '@material-ui/icons/Search';
-import Grid from '@material-ui/core/Grid';
 
 import {deletePartidaServer, fetchPartidas, selectAllPartidas} from './PartidasSlice'
 import TabelaPartidas from './TabelaPartidas'
-
-
-const useStyles = makeStyles((theme) => ({
-    margin: {
-      margin: theme.spacing(1),
-    },
-    image: {
-      width: 40,
-      height: "auto"
-    }
-  }));
-
 
 /**
  * @module partidas/ListagemPartida
@@ -39,7 +24,6 @@ function ListagemPartida() {
     const status = useSelector(state => state.partidas.status);
     const error = useSelector(state => state.partidas.error);
     const dispatch = useDispatch();
-    const classes = useStyles();
       
     function handleClickExcluirPartida(id){
       dispatch(deletePartidaServer(id));
@@ -68,16 +52,6 @@ function ListagemPartida() {
               <Box display="flex" justifyContent="flex-start" >
                 <Box>
                   <div id="lbl_titulo_pagina"><h1>Partidas</h1></div>
-                  {/*<div className={classes.root}>
-                    <Grid container spacing={1} alignItems="flex-end">
-                      <Grid item>
-                        <SearchIcon />
-                      </Grid>
-                      <Grid item>
-                        <TextField type="date" id="procura_data_partida" label="Data" InputLabelProps={{ shrink: true }}/>
-                      </Grid>
-                      </Grid>
-                    </div>*/}
                 </Box>
               </Box>
   

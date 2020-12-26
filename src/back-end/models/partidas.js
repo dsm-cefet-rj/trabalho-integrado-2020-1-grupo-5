@@ -18,18 +18,18 @@ const partidaSchema = new Schema({
         length: 50
     },
     time_A: {
-        type: Schema.Types.ObjectId,
-        ref: 'times'
-    },
-    time_B: {
-        type: Schema.Types.ObjectId,
-        ref: 'times'
+        type: String,
+        required: true
     },
     gols_time_A: {
         type: Number,
         required: true,
         min: 0,
         max: 99
+    },
+    time_B: {
+        type: String,
+        required: true
     },
     gols_time_B: {
         type: Number,

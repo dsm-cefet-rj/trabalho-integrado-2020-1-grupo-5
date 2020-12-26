@@ -4,22 +4,35 @@ import {useDispatch, useSelector} from 'react-redux';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useForm, Controller} from "react-hook-form";
 import Button from '@material-ui/core/Button';
-import { makeStyles} from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Input from '@material-ui/core/Input';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
 
 import {addPartidaServer, updatePartidaServer, selectPartidasById} from './PartidasSlice'
 import {partidaSchema} from './PartidaSchema';
 import {selectAllJogadores, fetchJogadores} from '../jogadores/JogadoresSlice'
 import {selectAllTimes, fetchTimes} from '../times/TimesSlice'
 
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,13 +46,24 @@ const useStyles = makeStyles((theme) => ({
     },
     form: {
       '& > *': {
-          margin: theme.spacing(1),
+         margin: theme.spacing(1),
       },
     },
-  
+    chips: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      chip: {
+        margin: 2,
+      },
+      formControl: {
+        //margin: theme.spacing(2),
+        //minWidth: 120,
+        //maxWidth: 300,
+      },
   }));
 
-
+ 
 /**
  * @module partidas/FormPartida
  */
@@ -68,19 +92,20 @@ const useStyles = makeStyles((theme) => ({
     const history  = useHistory();
     const dispatch = useDispatch();
     const classes  = useStyles(); 
-
+    
     const [jogadoresTimeA, setJogadoresTimeA] = useState([]);
     const [jogadoresTimeB, setJogadoresTimeB] = useState([]);
+
     const jogadores = useSelector(selectAllJogadores);
     const times     = useSelector(selectAllTimes);
 
-    const addJogadorTimeA = () => {
-        setJogadoresTimeA(jogadoresTimeA => [...jogadoresTimeA, <AdicionaJogador jogadores={jogadores} />]);
+    const addJogadorTimeA = (event) => {
+        setJogadoresTimeA(event.target.value);
     };
   
-    const addJogadorTimeB = () => {
-        setJogadoresTimeB(jogadoresTimeB => [...jogadoresTimeB, <AdicionaJogador jogadores={jogadores} />]);
-      };
+    const addJogadorTimeB = (event) => {
+        setJogadoresTimeB(event.target.value);
+    };
 
 
     const { register, handleSubmit, errors, control } = useForm({
@@ -165,30 +190,30 @@ const useStyles = makeStyles((theme) => ({
                         <Grid container item xs={6} >
                             <Grid> 
                                 <FormControl 
-                                        className={classes.formControl}
-                                        error={Boolean(errors.id_time_A)}>
-                                    <InputLabel id="demo-simple-select-label">Time A</InputLabel>
+                                        //className={classes.formControl}
+                                        error={Boolean(errors.time_A)}>
+                                    <InputLabel>Time A</InputLabel>
                                     <Controller
                                     as={
-                                        <Select  >
+                                        <Select>
                                             {times.map((option) => (
-                                                <MenuItem key={option.id} value={option.id}>
+                                                <MenuItem key={option.id} value={option.nome}>
                                                     {option.nome}
                                                 </MenuItem>
                                             ))}
                                         </Select>
                                     }
                                     style = {{width: 100}}
-                                    name="id_time_A" 
+                                    InputLabelProps={{ shrink: true }}
+                                    name="time_A" 
                                     control={control}
-                                    defaultValue={partidaOnLoad.id_time_A}
+                                    defaultValue={partidaOnLoad.id == null ? '' : partidaOnLoad.time_A}
                                     />
                                     <FormHelperText>
-                                    {errors.id_time_A?.message}
+                                    {errors.time_A?.message}
                                     </FormHelperText>
                                 </FormControl>
-
-                                &nbsp;&nbsp;&nbsp;
+                                <br/><br/>       
                                 <TextField
                                     id="gols_time_A"
                                     label="Gols" 
@@ -209,23 +234,74 @@ const useStyles = makeStyles((theme) => ({
                                     required
                                 />
                             </Grid>
-                            <br/><br/>
+                           {/* 
                             <Grid container>
-                                {jogadoresTimeA.map((item, i) => (<Grid key={i}>{item}</Grid>))}
-                            </Grid>
-
-                            <Grid>
-                                <IconButton 
-                                    id="adiciona_jogador_A" 
-                                    name="adiciona_jogador_A"
-                                    onClick={() => {addJogadorTimeA()}} >
-                                        <AddCircleIcon color='primary'/>
-                                </IconButton>
-                            </Grid>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel>Jogadores</InputLabel>
+                                    <br/>
+                                    <Controller
+                                        control={control}
+                                        name="jogador_time_A"
+                                        style = {{width: 150}}
+                                        defaultValue={[]}
+                                        render={({ onChange, value }) => {
+                                            console.log(value);
+                                            return (
+                                                <TextField
+                                                    //classes={{ root: classes.root }}
+                                                    select
+                                                    SelectProps={{
+                                                        multiple: true,
+                                                        value: value,
+                                                        renderValue: (selected) => 
+                                                            <div className={classes.chips}>
+                                                                {selected.map((value) => (
+                                                                    <Chip key={value} label={value} className={classes.chip} />))}
+                                                            </div>,
+                                                        onChange: onChange
+                                                    }}
+                                                >
+                                                    {jogadores.map((jogador) => (
+                                                        <MenuItem key={jogador.id} value={jogador.nome}>
+                                                            <Checkbox checked={jogadoresTimeA.includes(jogador.nome)} />
+                                                            <ListItemText primary={jogador.nome} />
+                                                        </MenuItem>
+                                                    ))}
+                                                </TextField>
+                                            );
+                                        }}
+                                    />
+                                </FormControl>
+                            </Grid>*/}
                         </Grid>
 
                         <Grid container item xs={6}>
                             <Grid >
+                            <FormControl 
+                                        //className={classes.formControl}
+                                        error={Boolean(errors.time_B)}>
+                                    <InputLabel>Time B</InputLabel>
+                                    <Controller
+                                    as={
+                                        <Select  >
+                                            {times.map((option) => (
+                                                <MenuItem key={option.id} value={option.nome}>
+                                                    {option.nome}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    }
+                                    style = {{width: 100}}
+                                    InputLabelProps={{ shrink: true }}
+                                    name="time_B" 
+                                    control={control}
+                                    defaultValue={partidaOnLoad.id == null ? '' : partidaOnLoad.time_B}
+                                    />
+                                    <FormHelperText>
+                                    {errors.time_B?.message}
+                                    </FormHelperText>
+                                </FormControl>
+                                <br/><br/>
                                 <TextField
                                     id="gols_time_B"
                                     label="Gols" 
@@ -244,88 +320,48 @@ const useStyles = makeStyles((theme) => ({
                                     InputLabelProps={{ shrink: true }}
                                     style = {{width: 45}}
                                 />
-                                 &nbsp;&nbsp;&nbsp;
-                                 <FormControl 
-                                        className={classes.formControl}
-                                        error={Boolean(errors.id_time_B)}>
-                                    <InputLabel id="demo-simple-select-label">Time B</InputLabel>
-                                    <Controller
-                                    as={
-                                        <Select  >
-                                            {times.map((option) => (
-                                                <MenuItem key={option.id} value={option.id}>
-                                                    {option.nome}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    }
-                                    style = {{width: 100}}
-                                    name="id_time_B" 
-                                    control={control}
-                                    defaultValue={partidaOnLoad.id_time_B}
-                                    />
-                                    <FormHelperText>
-                                    {errors.id_time_B?.message}
-                                    </FormHelperText>
+                            </Grid>
+                            {/*
+                            <Grid container >
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel>Jogadores</InputLabel>
+
+                                    <Select
+                                        id="jogador_time_B"
+                                        name="jogador_time_B"
+                                        multiple
+                                        defaultValue={jogadoresTimeB}
+                                        onChange={addJogadorTimeB}
+                                        control={control}
+                                        input={<Input />}
+                                        renderValue={(selected) => (
+                                            <div className={classes.chips}>
+                                                {selected.map((value) => (
+                                                    <Chip key={value} label={value} className={classes.chip} />
+                                                ))}
+                                            </div>
+                                        )}
+                                        MenuProps={MenuProps}
+                                        style = {{width: 150}}
+                                    >
+                                        {jogadores.map((jogador) => (
+                                            <MenuItem key={jogador.id} value={jogador.nome} >
+                                                <Checkbox checked={jogadoresTimeB.indexOf(jogador.nome) > -1} />
+                                                <ListItemText primary={jogador.nome} />
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
                                 </FormControl>
-                            </Grid>
-                            <br/><br/>
-                            <Grid container>
-                                {jogadoresTimeB.map((item, i) => (<Grid key={i}>{item}</Grid>))}
-                            </Grid>
-                            
-                            <Grid container>
-                                <IconButton 
-                                    id="adiciona_jogador_B" 
-                                    name="adiciona_jogador_B"
-                                    onClick={() => {addJogadorTimeB()}} >
-                                        <AddCircleIcon color='primary'/>
-                                </IconButton>
-                            </Grid>
+                            </Grid>*/}
                         </Grid>
                     </Grid>
-           
-                    <br/><br/>
-                    
+                     <br/><br/>
+
                     <Button type="submit" id="salva_partida" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                     <Button type="submit" id="cancela_partida" name="cancela_partida" variant="contained" onClick={() => { history.push('/partidas') }}>Cancelar</Button>
                 </form>
             </>
         );
-}
-
-
-function AdicionaJogador(props) {
-    return( <>
-                <TextField
-                    id="jogador"
-                    label="Jogador"
-                    name="jogador"
-                    style = {{width: 100}}
-                    select
-                    InputLabelProps={{ shrink: true }}
-                    size="small">
-                    {props.jogadores.map((option) => (
-                        <MenuItem key={option.id} value={option.id}>
-                        {option.nome}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <TextField
-                    id="gols_jogador"
-                    label="Gols"
-                    name="gols_jogador"
-                    type="number"
-                    style = {{width: 35}}
-                    InputLabelProps={{ shrink: true }}
-                    size="small"
-                    
-
-                />
-                <br/><br/>
-            </>
-    );
 }
 
 export default FormPartida

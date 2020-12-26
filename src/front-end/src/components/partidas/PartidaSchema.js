@@ -1,4 +1,4 @@
-import {string, object, number, setLocale, date} from 'yup';
+import {string, object, number, setLocale, date, array} from 'yup';
 import { ptForm } from 'yup-locale-pt';
 setLocale(ptForm)
 
@@ -19,9 +19,17 @@ export let partidaSchema = object().shape(
             .required(),
         arbitro: string().required().max(50),
         local: string().required().max(50),
-        id_time_A: string().required(),
+        time_A: string().required(),
         gols_time_A: number().required().min(0).max(99).typeError('O campo é obrigatório.'),
-        id_time_B: string().required(),
+        time_B: string().required(),
         gols_time_B: number().required().min(0).max(99).typeError('O campo é obrigatório.'),
+        /*jogador_time_A: array().of(
+            string().required(),
+        )
+            .required(),
+        jogador_time_B: array().of(
+            string().required(),
+        )
+            .required()*/
     }
 )

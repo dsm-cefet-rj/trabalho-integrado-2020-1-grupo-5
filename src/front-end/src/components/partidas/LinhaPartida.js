@@ -52,14 +52,14 @@ function LinhaPartida(props) {
                     <ListItemText secondary={new Date(props.partida.data).toLocaleDateString()}/>            
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center" >
-                  <ListItemText secondary={props.partida.id_time_A}/>
+                  <ListItemText secondary={props.partida.time_A}/>
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center">
                   <ListItemText>{props.partida.gols_time_A} X {props.partida.gols_time_B}</ListItemText>
               </Grid>
               <Grid direction="column" item xs={4} container alignItems="center">
                   
-                  <ListItemText secondary={props.partida.id_time_B}/>
+                  <ListItemText secondary={props.partida.time_B}/>
               </Grid>
             </Grid>        
           </ListItem>

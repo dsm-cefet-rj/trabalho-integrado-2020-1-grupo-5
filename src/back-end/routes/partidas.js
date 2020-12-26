@@ -5,11 +5,9 @@ const Partidas = require('../models/partidas');
 
 router.use(bodyParser.json());
 
-
 /* GET users listing. */
 router.route('/')
 .get(async (req, res, next) => {
-
   try{
     const partidas = await Partidas.find({});
     res.statusCode = 200;
@@ -20,13 +18,13 @@ router.route('/')
     res.statusCode = 404;
     res.json(err);
   }
-    
+
 })
 .post((req, res, next) => {
   
   Partidas.create(req.body)
   .then((partida) => {
-      console.log('Partida criado ', partida);
+      console.log('Partida criada ', partida);
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.json(partida);
@@ -37,13 +35,14 @@ router.route('/')
 
 router.route('/:id')
 .get(async (req, res, next) => {
+  console.log('aqui');
   let err;
   res.setHeader('Content-Type', 'application/json');
   try{
-    const resp = await Partidas.findById(req.params.id).populate('time_A').populate('time_B');
+    const resp = await Partidas.findById(req.params.id);
     if(resp != null){
       res.statusCode = 200;
-      res.json(resp);
+      res.json(resp)
     }else{
       err = {};
       res.statusCode = 404;
