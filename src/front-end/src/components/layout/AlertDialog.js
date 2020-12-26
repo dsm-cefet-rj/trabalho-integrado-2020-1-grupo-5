@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -35,12 +36,12 @@ export default function BotaoExcluir(props) {
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <IconButton onClick={handleClose}>
+                <Button onClick={handleClose}>
                     Cancelar
-                </IconButton>
-                <IconButton onClick={() => {props.funcao(props.chave)}} color="secondary" autoFocus>
+                </Button>
+                <Button onClick={() => {props.funcao(props.chave)}} color="secondary" autoFocus>
                     Excluir
-                </IconButton>
+                </Button>
                 </DialogActions>
             </Dialog>
         </>

@@ -4,6 +4,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
 
@@ -28,6 +29,7 @@ function LinhaAdm(props) {
   if(props != null && props.adm != null && props.adm.id != null){
     return(
       <>
+      <Divider/>
         <ListItem>
           <ListItem>
             <ListItem button component={Link} to = {`/adms/visualizar/${props.adm.id}`}>

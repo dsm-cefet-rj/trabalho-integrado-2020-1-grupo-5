@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
 
@@ -45,6 +46,7 @@ function LinhaPartida(props) {
   if(props != null && props.partida != null && props.partida.id != null){
     return(
       <>
+      <Divider/>
         <ListItem>
           <ListItem button component={Link} to = {`/partidas/visualizar/${props.partida.id}`}>
             <Grid className={classes.root} container direction="row">           
