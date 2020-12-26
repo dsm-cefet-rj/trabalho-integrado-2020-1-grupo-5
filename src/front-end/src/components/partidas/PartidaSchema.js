@@ -23,13 +23,13 @@ export let partidaSchema = object().shape(
         gols_time_A: number().required().min(0).max(99).typeError('O campo é obrigatório.'),
         time_B: string().required(),
         gols_time_B: number().required().min(0).max(99).typeError('O campo é obrigatório.'),
-        /*jogador_time_A: array().of(
+        jogador_time_A: array().of(
             string().required(),
         )
             .required(),
         jogador_time_B: array().of(
             string().required(),
         )
-            .required()*/
+            .required()
     }
 )

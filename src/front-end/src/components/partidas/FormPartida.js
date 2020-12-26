@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
         margin: 2,
       },
       formControl: {
-        //margin: theme.spacing(2),
+        margin: theme.spacing(2),
         //minWidth: 120,
         //maxWidth: 300,
       },
@@ -144,6 +144,7 @@ const useStyles = makeStyles((theme) => ({
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate autoComplete="off" >
                     <TextField 
+                        className={classes.formControl}
                         id="data_partida" 
                         label="Data" 
                         name="data"
@@ -158,6 +159,7 @@ const useStyles = makeStyles((theme) => ({
                     />
                     <br/>
                     <TextField
+                        className={classes.formControl}
                         id="arbitro_partida"
                         label="Árbitro" 
                         name="arbitro"
@@ -170,8 +172,9 @@ const useStyles = makeStyles((theme) => ({
                         size="small"
                         required
                     />
-                    <br/>
+                    
                     <TextField
+                        className={classes.formControl}
                         id="local_partida"
                         label="Local" 
                         name="local"
@@ -183,14 +186,13 @@ const useStyles = makeStyles((theme) => ({
                         style = {{width: 150}}
                         size="small"
                         required
-                    />
-                    <br/>                    
+                    />                    
                     
                     <Grid container>
                         <Grid container item xs={6} >
                             <Grid> 
                                 <FormControl 
-                                        //className={classes.formControl}
+                                        className={classes.formControl}
                                         error={Boolean(errors.time_A)}>
                                     <InputLabel>Time A</InputLabel>
                                     <Controller
@@ -204,7 +206,6 @@ const useStyles = makeStyles((theme) => ({
                                         </Select>
                                     }
                                     style = {{width: 100}}
-                                    InputLabelProps={{ shrink: true }}
                                     name="time_A" 
                                     control={control}
                                     defaultValue={partidaOnLoad.id == null ? '' : partidaOnLoad.time_A}
@@ -212,15 +213,15 @@ const useStyles = makeStyles((theme) => ({
                                     <FormHelperText>
                                     {errors.time_A?.message}
                                     </FormHelperText>
-                                </FormControl>
-                                <br/><br/>       
+                                </FormControl>      
                                 <TextField
+                                    className={classes.formControl}
                                     id="gols_time_A"
                                     label="Gols" 
                                     name="gols_time_A"
                                     type="number"
                                     size="small"
-                                    defaultValue={partidaOnLoad.gols_time_A} 
+                                    defaultValue={partidaOnLoad.id == null ? 0 : partidaOnLoad.gols_time_A} 
                                     inputRef={register}
                                     InputProps={{
                                         inputProps: { 
@@ -231,25 +232,29 @@ const useStyles = makeStyles((theme) => ({
                                     error={errors.gols_time_A?.message ? true: false} 
                                     InputLabelProps={{ shrink: true }}
                                     style = {{width: 45}}
-                                    required
                                 />
                             </Grid>
-                           {/* 
+                           
                             <Grid container>
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel>Jogadores</InputLabel>
+                                <FormControl 
+                                    className={classes.formControl}
+                                    error={Boolean(errors.jogador_time_A)}
+                                >
+                                    {/*<InputLabel>Jogadores</InputLabel>*/}
                                     <br/>
                                     <Controller
                                         control={control}
                                         name="jogador_time_A"
-                                        style = {{width: 150}}
-                                        defaultValue={[]}
+                                        defaultValue={partidaOnLoad.id == null ? [] : partidaOnLoad.jogador_time_A}
                                         render={({ onChange, value }) => {
                                             console.log(value);
                                             return (
                                                 <TextField
-                                                    //classes={{ root: classes.root }}
+                                                    classes={classes.formControl}
                                                     select
+                                                    label="Jogadores A"
+                                                    style = {{width: 150}}
+                                                    //InputLabelProps={{ shrink: true }}
                                                     SelectProps={{
                                                         multiple: true,
                                                         value: value,
@@ -263,7 +268,7 @@ const useStyles = makeStyles((theme) => ({
                                                 >
                                                     {jogadores.map((jogador) => (
                                                         <MenuItem key={jogador.id} value={jogador.nome}>
-                                                            <Checkbox checked={jogadoresTimeA.includes(jogador.nome)} />
+                                                            <Checkbox checked={value.includes(jogador.nome)} />
                                                             <ListItemText primary={jogador.nome} />
                                                         </MenuItem>
                                                     ))}
@@ -272,13 +277,13 @@ const useStyles = makeStyles((theme) => ({
                                         }}
                                     />
                                 </FormControl>
-                            </Grid>*/}
+                            </Grid>
                         </Grid>
 
                         <Grid container item xs={6}>
                             <Grid >
                             <FormControl 
-                                        //className={classes.formControl}
+                                        className={classes.formControl}
                                         error={Boolean(errors.time_B)}>
                                     <InputLabel>Time B</InputLabel>
                                     <Controller
@@ -301,14 +306,15 @@ const useStyles = makeStyles((theme) => ({
                                     {errors.time_B?.message}
                                     </FormHelperText>
                                 </FormControl>
-                                <br/><br/>
+
                                 <TextField
+                                    className={classes.formControl}
                                     id="gols_time_B"
                                     label="Gols" 
                                     name="gols_time_B"
                                     type="number"
                                     size="small"
-                                    defaultValue={partidaOnLoad.gols_time_B} 
+                                    defaultValue={partidaOnLoad.id == null ? 0 : partidaOnLoad.gols_time_B} 
                                     inputRef={register}
                                     InputProps={{
                                         inputProps: { 
@@ -321,41 +327,52 @@ const useStyles = makeStyles((theme) => ({
                                     style = {{width: 45}}
                                 />
                             </Grid>
-                            {/*
+                            
                             <Grid container >
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel>Jogadores</InputLabel>
-
-                                    <Select
-                                        id="jogador_time_B"
-                                        name="jogador_time_B"
-                                        multiple
-                                        defaultValue={jogadoresTimeB}
-                                        onChange={addJogadorTimeB}
-                                        control={control}
-                                        input={<Input />}
-                                        renderValue={(selected) => (
-                                            <div className={classes.chips}>
-                                                {selected.map((value) => (
-                                                    <Chip key={value} label={value} className={classes.chip} />
-                                                ))}
-                                            </div>
-                                        )}
-                                        MenuProps={MenuProps}
-                                        style = {{width: 150}}
+                                    <FormControl 
+                                        className={classes.formControl}
+                                        error={Boolean(errors.jogador_time_B)}
                                     >
-                                        {jogadores.map((jogador) => (
-                                            <MenuItem key={jogador.id} value={jogador.nome} >
-                                                <Checkbox checked={jogadoresTimeB.indexOf(jogador.nome) > -1} />
-                                                <ListItemText primary={jogador.nome} />
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>*/}
+                                        {/*<InputLabel>Jogadores</InputLabel>*/}
+                                        <br/>
+                                        <Controller
+                                            control={control}
+                                            name="jogador_time_B"
+                                            defaultValue={partidaOnLoad.id == null ? [] : partidaOnLoad.jogador_time_B}
+                                            render={({ onChange, value }) => {
+                                                console.log(value);
+                                                return (
+                                                    <TextField
+                                                        classes={classes.formControl}
+                                                        select
+                                                        label="Jogadores B"
+                                                        style = {{width: 150}}
+                                                        //InputLabelProps={{ shrink: true }}
+                                                        SelectProps={{
+                                                            multiple: true,
+                                                            value: value,
+                                                            renderValue: (selected) => 
+                                                                <div className={classes.chips}>
+                                                                    {selected.map((value) => (
+                                                                        <Chip key={value} label={value} className={classes.chip} />))}
+                                                                </div>,
+                                                            onChange: onChange
+                                                        }}
+                                                    >
+                                                        {jogadores.map((jogador) => (
+                                                            <MenuItem key={jogador.id} value={jogador.nome}>
+                                                                <Checkbox checked={value.includes(jogador.nome)} />
+                                                                <ListItemText primary={jogador.nome} />
+                                                            </MenuItem>
+                                                        ))}
+                                                    </TextField>
+                                                );
+                                            }}
+                                        />
+                                    </FormControl>    
+                            </Grid>
                         </Grid>
                     </Grid>
-                     <br/><br/>
 
                     <Button type="submit" id="salva_partida" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
                     <Button type="submit" id="cancela_partida" name="cancela_partida" variant="contained" onClick={() => { history.push('/partidas') }}>Cancelar</Button>

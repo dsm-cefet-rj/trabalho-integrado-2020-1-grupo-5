@@ -68,30 +68,34 @@ function VisualizarPartida() {
                     Árbitro: {partidaOnLoad.arbitro}
                 </Grid>
                 <Grid direction="column" item xs={4} container alignItems="center" >
-                    {partidaOnLoad.time_A}
+                    <h2>{partidaOnLoad.time_A}</h2>
                 </Grid>
                 <Grid direction="column" item xs={4} container alignItems="center">
                     <h2>{partidaOnLoad.gols_time_A} X {partidaOnLoad.gols_time_B} </h2>
                 </Grid>
                 <Grid direction="column" item xs={4} container alignItems="center">
-                    {partidaOnLoad.time_B}
+                    <h2>{partidaOnLoad.time_B}</h2>
                 </Grid>
             </Grid>
             <hr/>
             <Grid className={classes.root} container direction="row">
-                <Grid direction="column" item xs={6} container alignItems="center">
-                    Jogador A teste1
-                    <br/>
-                    Jogador A teste2
-                    <br/>
-                    Jogador A teste3
+                <Grid direction="column" item xs={4} container alignItems="center">
+                    {partidaOnLoad.jogador_time_A.map((jogador) => (
+                        <div>
+                            {jogador}
+                            <br/>
+                        </div>
+                    ))}
                 </Grid>
-                <Grid direction="column" item xs={6} container alignItems="center">
-                    Jogador B teste1
-                    <br/>
-                    Jogador B teste2
-                    <br/>
-                    Jogador B teste3
+                <Grid direction="column" item xs={4} container alignItems="center">
+                </Grid>
+                <Grid direction="column" item xs={4} container alignItems="center">
+                    {partidaOnLoad.jogador_time_B.map((jogador) => (
+                            <div>
+                                {jogador}
+                                <br/>
+                            </div>
+                        ))}
                 </Grid>
 
             </Grid>
