@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     form: {
       '& > *': {
          margin: theme.spacing(1),
+         align: 'center',
       },
     },
     chips: {
@@ -181,6 +182,7 @@ const useStyles = makeStyles((theme) => ({
                                             ))}
                                         </Select>
                                     }
+                                    id="time_A"
                                     style = {{width: 100}}
                                     name="time_A" 
                                     control={control}
@@ -304,52 +306,52 @@ const useStyles = makeStyles((theme) => ({
                             </Grid>
                             
                             <Grid container >
-                                    <FormControl 
-                                        className={classes.formControl}
-                                        error={Boolean(errors.jogador_time_B)}
-                                    >
-                                        {/*<InputLabel>Jogadores</InputLabel>*/}
-                                        <br/>
-                                        <Controller
-                                            control={control}
-                                            name="jogador_time_B"
-                                            defaultValue={partidaOnLoad.id == null ? [] : partidaOnLoad.jogador_time_B}
-                                            render={({ onChange, value }) => {
-                                                return (
-                                                    <TextField
-                                                        //classes={classes.formControl}
-                                                        select
-                                                        label="Jogadores B"
-                                                        style = {{width: 150}}
-                                                        //InputLabelProps={{ shrink: true }}
-                                                        SelectProps={{
-                                                            multiple: true,
-                                                            value: value,
-                                                            renderValue: (selected) => 
-                                                                <div className={classes.chips}>
-                                                                    {selected.map((value) => (
-                                                                        <Chip key={value} label={value} className={classes.chip} />))}
-                                                                </div>,
-                                                            onChange: onChange
-                                                        }}
-                                                    >
-                                                        {jogadores.map((jogador) => (
-                                                            <MenuItem key={jogador.id} value={jogador.nome}>
-                                                                <Checkbox checked={value.includes(jogador.nome)} />
-                                                                <ListItemText primary={jogador.nome} />
-                                                            </MenuItem>
-                                                        ))}
-                                                    </TextField>
-                                                );
-                                            }}
-                                        />
-                                    </FormControl>    
+                                <FormControl 
+                                    className={classes.formControl}
+                                    error={Boolean(errors.jogador_time_B)}
+                                >
+                                    {/*<InputLabel>Jogadores</InputLabel>*/}
+                                    <br/>
+                                    <Controller
+                                        control={control}
+                                        name="jogador_time_B"
+                                        defaultValue={partidaOnLoad.id == null ? [] : partidaOnLoad.jogador_time_B}
+                                        render={({ onChange, value }) => {
+                                            return (
+                                                <TextField
+                                                    //classes={classes.formControl}
+                                                    select
+                                                    label="Jogadores B"
+                                                    style = {{width: 150}}
+                                                    //InputLabelProps={{ shrink: true }}
+                                                    SelectProps={{
+                                                        multiple: true,
+                                                        value: value,
+                                                        renderValue: (selected) => 
+                                                            <div className={classes.chips}>
+                                                                {selected.map((value) => (
+                                                                    <Chip key={value} label={value} className={classes.chip} />))}
+                                                            </div>,
+                                                        onChange: onChange
+                                                    }}
+                                                >
+                                                    {jogadores.map((jogador) => (
+                                                        <MenuItem key={jogador.id} value={jogador.nome}>
+                                                            <Checkbox checked={value.includes(jogador.nome)} />
+                                                            <ListItemText primary={jogador.nome} />
+                                                        </MenuItem>
+                                                    ))}
+                                                </TextField>
+                                            );
+                                        }}
+                                    />
+                                </FormControl>    
                             </Grid>
                         </Grid>
                     </Grid>
 
-                    <Button type="submit" id="salva_partida" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
-                    <Button type="submit" id="cancela_partida" name="cancela_partida" variant="contained" onClick={() => { history.push('/partidas') }}>Cancelar</Button>
+                    <Button type="submit" id="salva_partida" name="btn_salvar_jogador" size="small" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="cancela_partida" name="cancela_partida" size="small" variant="contained" onClick={() => { history.push('/partidas') }}>Cancelar</Button>
                 </form>
             </>
         );

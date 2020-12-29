@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     '& > *': {
         margin: theme.spacing(1),
-        width: '25ch',
+        //width: '25ch',
     },
   },
 
@@ -94,8 +94,8 @@ function FormTime(props) {
                         InputLabelProps={{ shrink: true }}
                     />
                     <br/><br/>
-                    <Button type="submit" id="salva_time" name="salva_time" variant="contained" color="primary">Salvar</Button>
-                    <Button type="submit" id="cancela_time" name="cancela_time" variant="contained" onClick={() => { history.push('/times') }}>Cancelar</Button>                    
+                    <Button type="submit" id="salva_time" name="salva_time" size="small" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="cancela_time" name="cancela_time" size="small" variant="contained" onClick={() => { history.push('/times') }}>Cancelar</Button>                    
                 </form>
             </>
         );

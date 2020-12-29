@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     '& > *': {
         margin: theme.spacing(1),
-        width: '25ch',
+        //width: '25ch',
     },
   },
 
@@ -107,8 +107,8 @@ function FormJogador() {
                             InputLabelProps={{ shrink: true }}
                         />
                     <br/><br/>
-                    <Button type="submit" id="salva_jogador" name="btn_salvar_jogador" variant="contained" color="primary">Salvar</Button>
-                    <Button type="submit" id="cancela_jogador" name="cancela_jogador" variant="contained" onClick={() => { history.push('/jogadores') }}>Cancelar</Button>                    
+                    <Button type="submit" id="salva_jogador" name="btn_salvar_jogador" size="small" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="cancela_jogador" name="cancela_jogador" size="small" variant="contained" onClick={() => { history.push('/jogadores') }}>Cancelar</Button>                    
                 </form>
             </>
         );

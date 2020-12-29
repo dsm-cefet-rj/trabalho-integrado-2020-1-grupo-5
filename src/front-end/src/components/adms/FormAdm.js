@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     '& > *': {
         margin: theme.spacing(1),
-        width: '25ch',
+        //width: '25ch',
     },
   },
 
@@ -116,8 +116,8 @@ function FormAdm(props) {
                         InputLabelProps={{ shrink: true }}
                     />
                     <br/><br/>
-                    <Button type="submit" id="salva_adm" name="salva_adm" variant="contained" color="primary">Salvar</Button>
-                    <Button type="submit" id="cancela_adm" name="cancela_adm" variant="contained" onClick={() => { history.push('/adms') }}>Cancelar</Button>
+                    <Button type="submit" id="salva_adm" name="salva_adm" size="small" variant="contained" color="primary">Salvar</Button>
+                    <Button type="submit" id="cancela_adm" name="cancela_adm" size="small" variant="contained" onClick={() => { history.push('/adms') }}>Cancelar</Button>
                 </form>
             </>
         );
