@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 const bodyParser = require('body-parser');
 const Adms = require('../models/adms');
+var authenticate = require('../authenticate');
 
 router.use(bodyParser.json());
 
 
 /* GET users listing. */
 router.route('/')
-.get(async (req, res, next) => {
 
+.get(authenticate.verifyUser, async (req, res, next) => {
   try{
     const adms = await Adms.find({});
     res.statusCode = 200;
@@ -20,10 +21,9 @@ router.route('/')
     res.statusCode = 404;
     res.json(err);
   }
-    
 })
-.post((req, res, next) => {
-  
+
+.post(authenticate.verifyUser, (req, res, next) => {
   Adms.create(req.body)
   .then((adm) => {
       console.log('Adm criado ', adm);
@@ -32,11 +32,11 @@ router.route('/')
       res.json(adm);
   }, (err) => next(err))
   .catch((err) => next(err));
-
 })
 
 router.route('/:id')
-.get(async (req, res, next) => {
+
+.get(authenticate.verifyUser, async (req, res, next) => {
   let err;
   res.setHeader('Content-Type', 'application/json');
   try{
@@ -55,10 +55,9 @@ router.route('/:id')
     res.statusCode = 404;
     res.json({});
   }  
-
 })
-.delete((req, res, next) => {
-  
+
+.delete(authenticate.verifyUser, (req, res, next) => {
   Adms.findByIdAndRemove(req.params.id)
     .then((resp) => {
         res.statusCode = 200;
@@ -66,11 +65,9 @@ router.route('/:id')
         res.json(resp.id);
     }, (err) => next(err))
     .catch((err) => next(err));
-
-
 })
-.put((req, res, next) => {
-  
+
+.put(authenticate.verifyUser, (req, res, next) => {
     Adms.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, { new: true })

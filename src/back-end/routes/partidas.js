@@ -1,13 +1,17 @@
 var express = require('express');
 var router = express.Router();
 const bodyParser = require('body-parser');
+
 const Partidas = require('../models/partidas');
+var authenticate = require('../authenticate');
 
 router.use(bodyParser.json());
 
 /* GET users listing. */
 router.route('/')
-.get(async (req, res, next) => {
+
+.get(authenticate.verifyUser, async (req, res, next) => {
+  console.log(req.user);
   try{
     const partidas = await Partidas.find({});
     res.statusCode = 200;
@@ -18,10 +22,9 @@ router.route('/')
     res.statusCode = 404;
     res.json(err);
   }
-
 })
-.post((req, res, next) => {
-  
+
+.post(authenticate.verifyUser, (req, res, next) => {
   Partidas.create(req.body)
   .then((partida) => {
       console.log('Partida criada ', partida);
@@ -30,11 +33,11 @@ router.route('/')
       res.json(partida);
   }, (err) => next(err))
   .catch((err) => next(err));
-
 })
 
 router.route('/:id')
-.get(async (req, res, next) => {
+
+.get(authenticate.verifyUser, async (req, res, next) => {
   console.log('aqui');
   let err;
   res.setHeader('Content-Type', 'application/json');
@@ -42,7 +45,7 @@ router.route('/:id')
     const resp = await Partidas.findById(req.params.id);
     if(resp != null){
       res.statusCode = 200;
-      res.json(resp)
+      res.json(resp) //partidas?
     }else{
       err = {};
       res.statusCode = 404;
@@ -54,10 +57,9 @@ router.route('/:id')
     res.statusCode = 404;
     res.json({});
   }  
-
 })
-.delete((req, res, next) => {
-  
+
+.delete(authenticate.verifyUser, (req, res, next) => {
   Partidas.findByIdAndRemove(req.params.id)
     .then((resp) => {
         res.statusCode = 200;
@@ -65,11 +67,9 @@ router.route('/:id')
         res.json(resp.id);
     }, (err) => next(err))
     .catch((err) => next(err));
-
-
 })
-.put((req, res, next) => {
-  
+
+.put(authenticate.verifyUser, (req, res, next) => {
     Partidas.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, { new: true })
@@ -79,7 +79,6 @@ router.route('/:id')
       res.json(partida);
   }, (err) => next(err))
   .catch((err) => next(err));
-
 })
 
 
