@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import {deletePartidaServer, fetchPartidas, selectAllPartidas} from './PartidasSlice'
 import TabelaPartidas from './TabelaPartidas'
@@ -57,7 +58,9 @@ function ListagemPartida() {
   
               <Box display="flex" justifyContent="flex-end">
                 <Box>
+                <Tooltip title="Adicionar partida" aria-label="add">
                   <IconButton component={Link} to="/partidas/novo" id="nova_partida" name="btn_nova_partida"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
+                </Tooltip>
                 </Box>
               </Box>
               {tabelaPartidas}

@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import {deleteJogadorServer, fetchJogadores, selectAllJogadores} from './JogadoresSlice'
 import TabelaJogadores from './TabelaJogadores'
@@ -57,7 +58,9 @@ function ListagemJogador() {
   
               <Box display="flex" justifyContent="flex-end">
                 <Box>
-                  <IconButton component={Link} to="/jogadores/novo" id="novo_jogador" name="btn_novo_jogador"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
+                  <Tooltip title="Adicionar jogador" aria-label="add">
+                    <IconButton component={Link} to="/jogadores/novo" id="novo_jogador" name="btn_novo_jogador"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
+                  </Tooltip>
                 </Box>
               </Box>
               {tabelaJogadores}

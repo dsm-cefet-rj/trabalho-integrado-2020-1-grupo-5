@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import {deleteTimeServer, fetchTimes, selectAllTimes} from './TimesSlice'
 import TabelaTimes from './TabelaTimes'
@@ -57,7 +58,9 @@ function ListagemTime() {
   
               <Box display="flex" justifyContent="flex-end">
                 <Box>
-                  <IconButton component={Link} to="/times/novo" id="novo_time" name="novo_time"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
+                  <Tooltip title="Adicionar time" aria-label="add">
+                    <IconButton component={Link} to="/times/novo" id="novo_time" name="novo_time"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
+                  </Tooltip>
                 </Box>
               </Box>
               {tabelaTimes}

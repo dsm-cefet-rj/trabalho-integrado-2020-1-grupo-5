@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function BotaoExcluir(props) {
 
@@ -22,7 +23,9 @@ export default function BotaoExcluir(props) {
       
     return (
         <>
-            <IconButton id={props.id} name={props.name} onClick={handleClickOpen}><DeleteIcon /></IconButton>
+            <Tooltip title="Excluir" aria-label="delete">         
+                <IconButton id={props.id} name={props.name} onClick={handleClickOpen}><DeleteIcon /></IconButton>
+            </Tooltip>  
             <Dialog
                 open={open}
                 onClose={handleClose}

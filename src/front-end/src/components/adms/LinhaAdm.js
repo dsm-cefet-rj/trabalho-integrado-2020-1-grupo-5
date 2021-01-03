@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
 
@@ -37,7 +38,13 @@ function LinhaAdm(props) {
             </ListItem>
           </ListItem>          
           
-          <Link to={`/adms/${props.adm.id}`}><IconButton id="edita_adm" Link to={`/adms/${props.adm.id}`} ><EditIcon/></IconButton></Link>
+          <Link to={`/adms/${props.adm.id}`}>
+            <Tooltip title="Editar" aria-label="update">
+              <IconButton id="edita_adm" Link to={`/adms/${props.adm.id}`} >
+                <EditIcon/>
+              </IconButton>
+            </Tooltip>
+          </Link>
           
           <BotaoExcluir 
             id="deleta_adm" 

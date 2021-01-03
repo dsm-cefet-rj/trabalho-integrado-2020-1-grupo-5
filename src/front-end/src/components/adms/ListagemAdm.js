@@ -5,6 +5,7 @@ import {deleteAdmServer, fetchAdms, selectAllAdms} from './AdmsSlice'
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import TabelaAdms from './TabelaAdms'
 
@@ -56,7 +57,9 @@ function ListagemAdm() {
   
               <Box display="flex" justifyContent="flex-end">
                 <Box>
+                <Tooltip title="Adicionar ADM" aria-label="add">
                   <IconButton component={Link} to="/adms/novo" id="novo_adm" name="btn_novo_adm"><AddCircleIcon color='primary' style={{fontSize: 50}}/></IconButton>
+                </Tooltip>
                 </Box>
               </Box>
               {tabelaAdms}

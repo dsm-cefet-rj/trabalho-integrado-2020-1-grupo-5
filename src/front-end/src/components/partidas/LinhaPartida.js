@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
 
@@ -66,7 +67,13 @@ function LinhaPartida(props) {
             </Grid>        
           </ListItem>
 
-          <Link to={`/partidas/${props.partida.id}`}><IconButton id="edita_partida" Link to={`/partidas/${props.partida.id}`} ><EditIcon/></IconButton></Link>
+          <Link to={`/partidas/${props.partida.id}`}>
+            <Tooltip title="Editar" aria-label="update">
+              <IconButton id="edita_partida" Link to={`/partidas/${props.partida.id}`} >
+                <EditIcon/>
+              </IconButton>
+            </Tooltip>
+          </Link>
           
           <BotaoExcluir 
             id="deleta_partida" 

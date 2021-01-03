@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import BotaoExcluir from '../layout/AlertDialog.js'
 
@@ -37,7 +38,14 @@ function LinhaJogador(props) {
                 <ListItemText primary={props.jogador.nome}/>
               </ListItem>            
             </ListItem>
-            <Link to={`/jogadores/${props.jogador.id}`}><IconButton id="edita_jogador" Link to={`/jogadores/${props.jogador.id}`} ><EditIcon/></IconButton></Link>
+
+            <Link to={`/jogadores/${props.jogador.id}`}>
+              <Tooltip title="Editar" aria-label="update">
+                <IconButton id="edita_jogador" Link to={`/jogadores/${props.jogador.id}`} >
+                  <EditIcon/>
+                </IconButton>
+              </Tooltip>
+            </Link>
             
             <BotaoExcluir 
               id="deleta_jogador" 
