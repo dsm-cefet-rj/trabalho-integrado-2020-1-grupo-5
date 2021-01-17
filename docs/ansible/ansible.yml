@@ -1,0 +1,68 @@
+---
+- name: Rodar aplicação FutAdm do TrabalhoIntegrado-5 20.1
+  hosts: localhost
+  connection: local 
+  become: true
+
+  vars:
+    packages: ['git', 'yarn', 'nodejs']
+    # Modificar o path do diretório de acordo com a preferencia:
+    doc_root: /Documents/TrabalhoIntegrado
+  
+  tasks:
+    - name: Update and upgrade apt packages
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+    - name: Instalar Pacotes
+      apt:
+        name: "{{ packages }}"
+        state: present
+                
+    - name: Verificar instalação do MongoDB
+      register: mongo_installed
+      command: mongo --version
+      changed_when: false
+
+    - name: Verificar instalação do Git
+      register: github_installed
+      command: git --version
+      changed_when: false
+
+    - name: Verificar instalação do Yarn
+      register: yarn_installed
+      command: yarn -v
+      changed_when: false
+
+    - name: Verificar instalação do NodeJS
+      register: node_installed
+      command: node -v
+      changed_when: false
+
+    - name: Verificar instalação do NPM
+      register: npm_installed
+      command: npm version
+      changed_when: false
+    
+    - name: Clonar repositório GitHub
+      git:
+        repo: "https://github.com/dsm-cefet-rj/trabalho-integrado-2020-1-grupo-5"
+        dest: "{{ doc_root }}"
+        update: yes
+
+    - name: Build do front-end
+      register: yarn_build
+      command: yarn build
+      args: 
+        chdir: "{{ doc_root }}/src/front-end"
+      changed_when: false
+
+    - name: Criar pasta no back-end para receber a Build
+      file:
+        path: "{{ doc_root }}/src/back-end/public"
+        state: directory
+
+    - name: Copiar build para o back-end
+      copy:
+        src: "{{ doc_root }}/src/front-end/build"
+        dest: "{{ doc_root }}/src/back-end/public"
+        changed_when: false
