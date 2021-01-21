@@ -3,10 +3,13 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
 import TabelaTimes from './../TabelaTimes'
+
+// Todos os testes do LinhaTime funcionam -> LinhaTime.unit.test.js
 import LinhaTimes from './../LinhaTime'
 
-//Erro ao mockar ListItems
+//// Erro ao mockar ListItems
 // Insight: ListItems cria elementos HTML não-ordenados
+// Jest.mock vazio também dá erro
 jest.mock('./../LinhaTime', () => jest.fn(() => (<ul><li>MokedLine</li><li>MokedLine</li></ul>)));
 
 describe('TabelaTimes Unit', function () {
@@ -25,7 +28,7 @@ describe('TabelaTimes Unit', function () {
         expect(screen.getByText(/Não existem times a serem exibidos./i)).toBeInTheDocument() 
     });
 
-    // Erro ao chamar função LinhaTime por meio da TabelaTimes
+    //// Erro ao chamar função LinhaTime por meio da TabelaTimes
     // Insight: Entender melhor como funciona a função e mockar parte dela
     test('um Time na tabela', () => {
         render(<TabelaTimes times={[{id:1, nome: 'Time 1'}]}  />, { wrapper: MemoryRouter });
